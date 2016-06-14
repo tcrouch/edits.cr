@@ -21,7 +21,7 @@ module Edits
     # no similarity.
     # 
     # ```
-    # JaroWinkler.similarity('information', 'informant')
+    # JaroWinkler.similarity("information", "informant")
     # # => 0.9414141414141414
     # ```
     # Note: not a true distance metric, fails to satisfy triangle inequality.

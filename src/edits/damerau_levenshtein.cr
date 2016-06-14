@@ -9,9 +9,9 @@ module Edits
   module DamerauLevenshtein
     # Calculate the Damerau/Levenshtein distance of two sequences.
     #
-    # `DamerauLevenshtein.distance('acer', 'earn')    # => 3`
+    # `DamerauLevenshtein.distance("acer", "earn")    # => 3`
     def self.distance(str1, str2)
-      # outperforms String
+      # array of codepoints outperforms String
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 

@@ -10,9 +10,9 @@ module Edits
     #
     # Note: a true distance metric, satisfies triangle inequality.
     #
-    # `Levenshtein.distance('sand', 'hands')    # => 2`
+    # `Levenshtein.distance("sand", "hands")    # => 2`
     def self.distance(str1, str2)
-      # array of Fixnum codepoints outperforms String
+      # array of codepoints outperforms String
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
@@ -62,8 +62,8 @@ module Edits
     # a maximum value. For low max values, this can have better performance.
     #
     # ```
-    # Levenshtein.distance 'cloud', 'crayon'                # => 5
-    # Levenshtein.distance_with_max 'cloud', 'crayon', 2    # => 2
+    # Levenshtein.distance "cloud", "crayon"                # => 5
+    # Levenshtein.distance_with_max "cloud", "crayon", 2    # => 2
     # ```
     def self.distance(str1, str2, max : Int32)
       seq1 = str1.codepoints
@@ -119,8 +119,8 @@ module Edits
     # Given a prototype string and an array of strings, determines which
     # string is most similar to the prototype.
     #
-    # `Levenshtein.most_similar('foo', strings)` is functionally equivalent to
-    # `strings.min_by { |s| Levenshtein.distance('foo', s) }`, leveraging a
+    # `Levenshtein.most_similar("foo", strings)` is functionally equivalent to
+    # `strings.min_by { |s| Levenshtein.distance("foo", s) }`, leveraging a
     # max distance.
     def self.most_similar(prototype, strings : Enumerable)
       case strings.size

@@ -13,7 +13,7 @@ module Edits
     # no similarity.
     #
     # ```
-    # Jaro.distance('information', 'informant')
+    # Jaro.distance("information", "informant")
     # # => 0.9023569023569024
     # ```
     def self.similarity(str1, str2)
