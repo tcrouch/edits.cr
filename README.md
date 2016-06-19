@@ -5,6 +5,9 @@ A collection of edit distance algorithms in Crystal.
 Includes Levenshtein, Restricted Edit (Optimal Alignment) and
 Damerau-Levenshtein distances, and Jaro and Jaro-Winkler similarity.
 
+[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/tcrouch/edits.cr)
+
+
 ## Installation
 
 
