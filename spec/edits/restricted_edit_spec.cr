@@ -24,7 +24,7 @@ describe Edits::RestrictedEdit do
       {"acer", "earn", 4},
       {"tram", "rota", 4},
       {"information", "informant", 4},
-      {"roam", "art", 4}
+      {"roam", "art", 4},
     ]
 
     cases.each do |(a, b, distance)|

@@ -46,10 +46,11 @@ module Edits
 
         cols.times do |col|
           sub_cost = curr_item == seq2[col] ? 0 : 1
-          is_swap = sub_cost == 1 \
-                    && row > 0 && col > 0 \
-                    && curr_item == seq2[col - 1] \
-                    && seq1[row - 1] == seq2[col]
+          is_swap = sub_cost == 1 &&
+            row > 0 &&
+            col > 0 &&
+            curr_item == seq2[col - 1] &&
+            seq1[row - 1] == seq2[col]
 
           deletion = last_row[col + 1] + 1
           insertion = curr_row[col] + 1

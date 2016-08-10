@@ -23,7 +23,7 @@ describe Edits::Levenshtein do
     {"acer", "earn", 4},
     {"tram", "rota", 4},
     {"information", "informant", 4},
-    {"roam", "art", 4}
+    {"roam", "art", 4},
   ]
 
   describe ".distance" do

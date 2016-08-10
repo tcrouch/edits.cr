@@ -19,18 +19,17 @@ module Edits
 
     # Calculate Jaro-Winkler similarity, where 1 is an exact match and 0 is
     # no similarity.
-    # 
+    #
     # ```
     # JaroWinkler.similarity("information", "informant")
     # # => 0.9414141414141414
     # ```
     # Note: not a true distance metric, fails to satisfy triangle inequality.
     def self.similarity(
-        str1,
-        str2,
-        threshold = WINKLER_THRESHOLD,
-        weight = WINKLER_PREFIX_WEIGHT)
-
+                        str1,
+                        str2,
+                        threshold = WINKLER_THRESHOLD,
+                        weight = WINKLER_PREFIX_WEIGHT)
       sj = Jaro.similarity(str1, str2)
 
       if sj > threshold

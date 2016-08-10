@@ -42,5 +42,5 @@ SHARED_CASES = [
   {"sunday", "saturday", 3},
   {"kitten", "sitting", 3},
   {"raked", "bakers", 3},
-  {"phish", "fish", 2}
+  {"phish", "fish", 2},
 ]

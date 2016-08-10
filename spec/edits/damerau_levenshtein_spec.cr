@@ -23,7 +23,7 @@ describe Edits::DamerauLevenshtein do
       {"acer", "earn", 3},
       {"tram", "rota", 3},
       {"information", "informant", 3},
-      {"roam", "art", 3}
+      {"roam", "art", 3},
     ]
 
     cases.each do |(a, b, distance)|

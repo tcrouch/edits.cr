@@ -50,16 +50,15 @@ module Edits
           seq2_item = seq2[col - 1]
           last_match_row = item_history[seq2_item]
 
-          transposition = matrix[last_match_row][last_match_col] \
-                          + (row - last_match_row - 1) \
-                          + 1 \
-                          + (col - last_match_col - 1)
+          transposition = 1 + matrix[last_match_row][last_match_col]
+          transposition += row - last_match_row - 1
+          transposition += col - last_match_col - 1
 
           # TODO: do addition/deletion need to be considered when
           # seq1_item == seq2_item ?
           substitution = matrix[row][col] + (seq1_item == seq2_item ? 0 : 1)
-          addition     = matrix[row + 1][col] + 1
-          deletion     = matrix[row][col + 1] + 1
+          addition = matrix[row + 1][col] + 1
+          deletion = matrix[row][col + 1] + 1
 
           # step cost is min of possible operation costs
           cost = Math.min(substitution, addition)
