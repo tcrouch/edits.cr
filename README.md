@@ -1,13 +1,12 @@
 # edits
 
+[![Build Status](https://travis-ci.org/tcrouch/edits.cr.svg)](https://travis-ci.org/tcrouch/edits.cr)
+[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/tcrouch/edits.cr)
+
 A collection of edit distance algorithms in Crystal.
 
 Includes Levenshtein, Restricted Edit (Optimal Alignment) and
 Damerau-Levenshtein distances, and Jaro and Jaro-Winkler similarity.
-
-[![Build Status](https://travis-ci.org/tcrouch/edits.cr.svg)](https://travis-ci.org/tcrouch/edits.cr)
-[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/tcrouch/edits.cr)
-
 
 ## Installation
 
