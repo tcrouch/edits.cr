@@ -55,8 +55,11 @@ module Edits
     # JaroWinkler.distance "information", "informant"
     # # => 0.05858585858585863
     # ```
-    def self.distance(str1, str2)
-      1.0 - similarity(str1, str2)
+    def self.distance(str1,
+                      str2,
+                      threshold = WINKLER_THRESHOLD,
+                      weight = WINKLER_PREFIX_WEIGHT)
+      1.0 - similarity(str1, str2, threshold, weight)
     end
   end
 end

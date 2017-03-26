@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe Edits::Jaro do
+describe Edits::JaroWinkler do
   describe ".similarity" do
     {
       {"", ""}  => 1,
@@ -26,18 +26,42 @@ describe Edits::Jaro do
       end
     end
 
-    describe ".distance" do
-      {
-        {"", ""}           => 0,
-        {"", "a"}          => 1,
-        {"a", ""}          => 1,
-        {"acer", "earn"}   => 0.333,
-        {"minion", "noir"} => 0.556,
-      }.each do |(a, b), expected|
-        it "returns #{expected} for #{a} vs. #{b}" do
-          distance = Edits::JaroWinkler.distance(a, b)
-          distance.round(3).should eq expected
-        end
+    context "with a custom threshold" do
+      it "returns jaro when lt threshold" do
+        similarity = Edits::JaroWinkler.similarity "abcde", "abdef", threshold: 0.87
+        similarity.round(3).should eq 0.867
+      end
+
+      it "returns jaro-winkler when gt threshold" do
+        similarity = Edits::JaroWinkler.similarity "abcde", "abdef", threshold: 0.86
+        similarity.round(3).should eq 0.893
+      end
+    end
+  end
+
+  describe ".distance" do
+    {
+      {"", ""}           => 0,
+      {"", "a"}          => 1,
+      {"a", ""}          => 1,
+      {"acer", "earn"}   => 0.333,
+      {"minion", "noir"} => 0.556,
+    }.each do |(a, b), expected|
+      it "returns #{expected} for #{a} vs. #{b}" do
+        distance = Edits::JaroWinkler.distance(a, b)
+        distance.round(3).should eq expected
+      end
+    end
+
+    context "with a custom threshold" do
+      it "returns jaro when lt threshold" do
+        distance = Edits::JaroWinkler.distance "abcde", "abdef", threshold: 0.87
+        distance.round(3).should eq 0.133
+      end
+
+      it "returns jaro-winkler when gt threshold" do
+        distance = Edits::JaroWinkler.distance "abcde", "abdef", threshold: 0.86
+        distance.round(3).should eq 0.107
       end
     end
   end
