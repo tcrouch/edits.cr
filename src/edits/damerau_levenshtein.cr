@@ -5,7 +5,7 @@ module Edits
   # * Insertion
   # * Deletion
   # * Substitution
-  # * Transposition
+  # * Adjacent transposition
   module DamerauLevenshtein
     # Calculate the Damerau/Levenshtein distance of two sequences.
     #
