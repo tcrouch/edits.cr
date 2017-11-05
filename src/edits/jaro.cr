@@ -71,7 +71,7 @@ module Edits
         end
       end
 
-      return [0, 0] if matches == 0
+      return {0, 0} if matches == 0
 
       transposes = 0
       j = 0
