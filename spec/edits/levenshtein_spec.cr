@@ -3,7 +3,7 @@ require "./levenshtein_shared"
 
 describe Edits::Levenshtein do
   cases = SHARED_CASES + [
-    # swaps
+    # simple transpositions
     {"abc", "acb", 2},
     {"abc", "bac", 2},
     {"abcdef", "abcdfe", 2},
@@ -27,7 +27,7 @@ describe Edits::Levenshtein do
   ]
 
   describe ".distance" do
-    context "without a max distance" do
+    context "with no max distance" do
       cases.each do |(a, b, distance)|
         it "returns #{distance} for #{a}, #{b}" do
           result = Edits::Levenshtein.distance a, b
@@ -36,16 +36,27 @@ describe Edits::Levenshtein do
       end
     end
 
-    context "with max distance" do
+    context "when max is 100" do
       cases.each do |(a, b, distance)|
         it "returns #{distance} for #{a}, #{b}" do
-          result = Edits::Levenshtein.distance a, b, 100
-          result.should eq distance
+          Edits::Levenshtein.distance(a, b, 100).should eq distance
+        end
+      end
+    end
+
+    context "when max is 4" do
+      cases.each do |(a, b, distance)|
+        it "returns lte 4 for #{a}, #{b}" do
+          Edits::Levenshtein.distance(a, b, 4).should be <= 4
         end
       end
 
-      it "does not exceed the given maximum" do
-        Edits::Levenshtein.distance("foo", "barbaz", 2).should eq 2
+      it "returns 4 for \"\", abcdfe" do
+        Edits::Levenshtein.distance("", "abcdfe", 4).should eq 4
+      end
+
+      it "returns 4 for abcdfe, \"\"" do
+        Edits::Levenshtein.distance("abcdfe", "", 4).should eq 4
       end
     end
   end

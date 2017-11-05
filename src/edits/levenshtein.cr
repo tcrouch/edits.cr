@@ -71,8 +71,8 @@ module Edits
 
       rows = seq1.size
       cols = seq2.size
-      return cols if rows == 0
-      return rows if cols == 0
+      return cols > max ? max : cols if rows.zero?
+      return rows > max ? max : rows if cols.zero?
       return max if (rows - cols).abs >= max
 
       if cols > rows
