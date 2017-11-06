@@ -81,5 +81,80 @@ module Edits
 
       curr_row[cols]
     end
+
+    # Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
+    # of two sequences, bounded by a maximum value.
+    #
+    # ```
+    # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5
+    # Edits::RestrictedEdit.distance("cloud", "crayon", 2) # => 2
+    # ```
+    def self.distance(str1, str2, max : Int32)
+      seq1 = str1.codepoints
+      seq2 = str2.codepoints
+
+      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
+
+      rows = seq1.size
+      cols = seq2.size
+      return cols > max ? max : cols if rows.zero?
+      return rows > max ? max : rows if cols.zero?
+      return max if rows - cols >= max
+
+      # 'infinite' edit distance for padding cost matrix.
+      # Can be any value > max[rows, cols]
+      inf = rows + 1
+
+      # retain previous two rows of cost matrix,
+      # padded with "inf" as matrix is not fully evaluated
+      lastlast_row = Array.new(cols + 1, inf)
+      last_row = Array.new(cols + 1, inf)
+      curr_row = 0.upto(cols).to_a
+
+      rows.times do |row|
+        # rotate row arrays
+        curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
+
+        # Ukkonen cut-off
+        min_col = row > max ? row - max : 0
+        max_col = row + max
+        max_col = cols - 1 if max_col > cols - 1
+
+        curr_row[min_col] = min_col.zero? ? row + 1 : inf
+        seq1_item = seq1[row]
+        diagonal = cols - rows + row
+
+        min_col.upto(max_col) do |col|
+          return max if diagonal == col && last_row[col] >= max
+
+          sub_cost = seq1_item == seq2[col] ? 0 : 1
+          is_swap = sub_cost == 1 &&
+                    row > 0 && col > 0 &&
+                    seq1_item == seq2[col - 1] &&
+                    seq1[row - 1] == seq2[col]
+
+          # | Xt |    |    |
+          # |    | Xs | Xd |
+          # |    | Xi | ?  |
+          # substitution, deletion, insertion, transposition
+          substitution = last_row[col] + sub_cost
+          deletion = last_row[col + 1] + 1
+          insertion = curr_row[col] + 1
+
+          # step cost is min of possible operation costs
+          cost = Math.min(insertion, deletion)
+          cost = Math.min(cost, substitution)
+
+          if is_swap
+            swap = lastlast_row[col - 1] + 1
+            cost = Math.min(cost, swap)
+          end
+
+          curr_row[col + 1] = cost
+        end
+      end
+
+      curr_row[cols] > max ? max : curr_row[cols]
+    end
   end
 end

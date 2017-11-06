@@ -27,10 +27,38 @@ describe Edits::RestrictedEdit do
       {"roam", "art", 4},
     ]
 
-    cases.each do |(a, b, distance)|
-      it "returns #{distance} for #{a}, #{b}" do
-        result = Edits::RestrictedEdit.distance a, b
-        result.should eq distance
+    describe ".distance" do
+      context "with no max distance" do
+        cases.each do |(a, b, distance)|
+          it "returns #{distance} for #{a}, #{b}" do
+            result = Edits::RestrictedEdit.distance a, b
+            result.should eq distance
+          end
+        end
+      end
+
+      context "when max is 100" do
+        cases.each do |(a, b, distance)|
+          it "returns #{distance} for #{a}, #{b}" do
+            Edits::RestrictedEdit.distance(a, b, 100).should eq distance
+          end
+        end
+      end
+
+      context "when max is 4" do
+        cases.each do |(a, b, distance)|
+          it "returns lte 4 for #{a}, #{b}" do
+            Edits::RestrictedEdit.distance(a, b, 4).should be <= 4
+          end
+        end
+
+        it "returns 4 for \"\", abcdfe" do
+          Edits::RestrictedEdit.distance("", "abcdfe", 4).should eq 4
+        end
+
+        it "returns 4 for abcdfe, \"\"" do
+          Edits::RestrictedEdit.distance("abcdfe", "", 4).should eq 4
+        end
       end
     end
   end
