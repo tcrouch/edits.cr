@@ -16,15 +16,12 @@ module Edits
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
+      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
+
       rows = seq1.size
       cols = seq2.size
-      return cols if rows == 0
-      return rows if cols == 0
-
-      if cols > rows
-        seq2, seq1 = seq1, seq2
-        cols, rows = rows, cols
-      end
+      return cols if rows.zero?
+      return rows if cols.zero?
 
       # Initialize first row of cost matrix.
       # Full initial state where cols=2, rows=3 would be:
@@ -69,16 +66,13 @@ module Edits
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
+      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
+
       rows = seq1.size
       cols = seq2.size
       return cols > max ? max : cols if rows.zero?
       return rows > max ? max : rows if cols.zero?
-      return max if (rows - cols).abs >= max
-
-      if cols > rows
-        seq2, seq1 = seq1, seq2
-        cols, rows = rows, cols
-      end
+      return max if rows - cols >= max
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value > max[rows, cols]
