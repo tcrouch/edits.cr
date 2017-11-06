@@ -22,14 +22,21 @@ module Edits
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
+      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
+
       rows = seq1.size
       cols = seq2.size
-      return cols if rows == 0
-      return rows if cols == 0
+      return cols if rows.zero?
+      return rows if cols.zero?
 
-      # previous two rows of cost matrix are retained
-      lastlast_row = [] of Int32
-      last_row = [] of Int32
+      # 'infinite' edit distance for padding cost matrix.
+      # Can be any value > max[rows, cols]
+      inf = rows + 1
+
+      # retain previous two rows of cost matrix
+      lastlast_row = Array(Int32).new(cols + 1, inf)
+      last_row = Array(Int32).new(cols + 1, inf)
+
       # Initialize first row of cost matrix.
       # Full initial state where cols=3, rows=2 would be:
       #   [[0, 1, 2, 3],
@@ -38,26 +45,26 @@ module Edits
       curr_row = 0.upto(cols).to_a
 
       rows.times do |row|
-        lastlast_row = last_row
-        last_row = curr_row
+        # rotate row arrays
+        curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
 
-        # generate next row of cost matrix
-        curr_row = Array.new(cols + 1, 0)
         curr_row[0] = row + 1
-
-        curr_item = seq1[row]
+        seq1_item = seq1[row]
 
         cols.times do |col|
-          sub_cost = curr_item == seq2[col] ? 0 : 1
+          sub_cost = seq1_item == seq2[col] ? 0 : 1
           is_swap = sub_cost == 1 &&
-            row > 0 &&
-            col > 0 &&
-            curr_item == seq2[col - 1] &&
-            seq1[row - 1] == seq2[col]
+                    row > 0 && col > 0 &&
+                    seq1_item == seq2[col - 1] &&
+                    seq1[row - 1] == seq2[col]
 
+          # | Xt |    |    |
+          # |    | Xs | Xd |
+          # |    | Xi | ?  |
+          # substitution, deletion, insertion, transposition
+          substitution = last_row[col] + sub_cost
           deletion = last_row[col + 1] + 1
           insertion = curr_row[col] + 1
-          substitution = last_row[col] + sub_cost
 
           # step cost is min of possible operation costs
           cost = Math.min(insertion, deletion)
