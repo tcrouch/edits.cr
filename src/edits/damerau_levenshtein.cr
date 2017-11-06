@@ -15,14 +15,16 @@ module Edits
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
+      seq1, seq2 = seq2, seq1 if seq1.size > seq2.size
+
       rows = seq1.size
       cols = seq2.size
-      return cols if rows == 0
-      return rows if cols == 0
+      return cols if rows.zero?
+      return rows if cols.zero?
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value greater than max[rows, cols]
-      inf = rows + cols
+      inf = cols + 1
 
       # Initialize first two rows of cost matrix.
       # Full initial state where cols=3, rows=2 (inf=5) would be:
