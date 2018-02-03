@@ -63,6 +63,8 @@ Edits::RestrictedEdit.distance "acer", "earn"
 # Max distance
 Edits::RestrictedEdit.distance "iota", "atom", 2
 # => 2
+Edits::RestrictedEdit.most_similar "atom", ["iota", "tome", "mown", "tame"]
+# => "tome"
 ```
 
 ### Damerau-Levenshtein

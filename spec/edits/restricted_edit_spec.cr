@@ -62,4 +62,25 @@ describe Edits::RestrictedEdit do
       end
     end
   end
+
+  describe ".most_similar" do
+    context "with empty enumerable" do
+      it "raises empty error" do
+        expect_raises(Enumerable::EmptyError) { Edits::RestrictedEdit.most_similar("foo", [] of String) }
+      end
+    end
+
+    context "with a single element" do
+      it "returns the element" do
+        Edits::RestrictedEdit.most_similar("foo", ["bar"]).should eq "bar"
+      end
+    end
+
+    context "with multiple elements" do
+      it "returns the element with the least distance" do
+        strings = %w(iota roam acre iconic iron seed arm read mine atom farm earn ran ionic distance)
+        Edits::RestrictedEdit.most_similar("minion", strings).should eq "iron"
+      end
+    end
+  end
 end

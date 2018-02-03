@@ -6,6 +6,8 @@ module Edits
   # * Deletion
   # * Substitution
   module Levenshtein
+    extend Compare
+
     # Calculate the Levenshtein (edit) distance of two sequences.
     #
     # Note: a true distance metric, satisfies triangle inequality.
@@ -113,32 +115,6 @@ module Edits
       end
 
       last_row[cols] > max ? max : last_row[cols]
-    end
-
-    # Given a prototype string and an array of strings, determines which
-    # string is most similar to the prototype.
-    #
-    # `Levenshtein.most_similar("foo", strings)` is functionally equivalent to
-    # `strings.min_by { |s| Levenshtein.distance("foo", s) }`, leveraging a
-    # max distance.
-    def self.most_similar(prototype, strings : Enumerable)
-      case strings.size
-      when 0 then raise Enumerable::EmptyError.new
-      when 1 then return strings.first
-      end
-
-      min_s = strings[0]
-      min_d = distance(prototype, min_s)
-
-      strings[1..-1].each do |s|
-        d = distance(prototype, s, min_d)
-        if d < min_d
-          min_d = d
-          min_s = s
-        end
-      end
-
-      min_s
     end
   end
 end

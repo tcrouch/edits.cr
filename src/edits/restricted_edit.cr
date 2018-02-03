@@ -11,6 +11,8 @@ module Edits
   # This variant is restricted by the condition that no sub-string is edited
   # more than once.
   module RestrictedEdit
+    extend Compare
+
     # Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
     # of two sequences.
     #
