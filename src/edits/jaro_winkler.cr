@@ -25,9 +25,7 @@ module Edits
     # # => 0.9414141414141414
     # ```
     # Note: not a true distance metric, fails to satisfy triangle inequality.
-    def self.similarity(
-                        str1,
-                        str2,
+    def self.similarity(str1, str2,
                         threshold = WINKLER_THRESHOLD,
                         weight = WINKLER_PREFIX_WEIGHT)
       sj = Jaro.similarity(str1, str2)
@@ -55,8 +53,7 @@ module Edits
     # JaroWinkler.distance "information", "informant"
     # # => 0.05858585858585863
     # ```
-    def self.distance(str1,
-                      str2,
+    def self.distance(str1, str2,
                       threshold = WINKLER_THRESHOLD,
                       weight = WINKLER_PREFIX_WEIGHT)
       1.0 - similarity(str1, str2, threshold, weight)
