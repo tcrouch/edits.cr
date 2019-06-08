@@ -3,5 +3,7 @@ version: 0.4.0
 
 authors:
   - Tom Crouch <tom.crouch@gmail.com>
+description: |
+  Collection of edit distance algorithms
 
 license: MIT
