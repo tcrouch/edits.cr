@@ -45,7 +45,7 @@ module Edits
       # search range: (max(|A|, |B|) / 2) - 1
       seq1, seq2 = seq2, seq1 if seq1.size > seq2.size
       seq1_length = seq1.size
-      range = (seq2.size / 2) - 1
+      range = (seq2.size // 2) - 1
       range = 0 if range < 0
 
       seq1_flags = BitArray.new(seq1_length, false)
@@ -91,7 +91,7 @@ module Edits
       end
 
       # half-transpositions -> transpositions
-      transposes /= 2
+      transposes //= 2
 
       {matches, transposes}
     end
