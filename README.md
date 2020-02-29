@@ -1,7 +1,7 @@
 # edits
 
 [![Build Status](https://travis-ci.org/tcrouch/edits.cr.svg)](https://travis-ci.org/tcrouch/edits.cr)
-[![docrystal.org](http://docrystal.org/badge.svg)](http://docrystal.org/github.com/tcrouch/edits.cr)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/55107996a0e444a3b273d265780ccc38)](https://www.codacy.com/manual/t.crouch/edits.cr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tcrouch/edits.cr&amp;utm_campaign=Badge_Grade)
 
 A collection of edit distance algorithms in Crystal.
 
@@ -9,7 +9,6 @@ Includes Levenshtein, Restricted Edit (Optimal Alignment) and
 Damerau-Levenshtein distances, and Jaro and Jaro-Winkler similarity.
 
 ## Installation
-
 
 Add this to your application's `shard.yml`:
 
@@ -19,9 +18,7 @@ dependencies:
     github: tcrouch/edits.cr
 ```
 
-
 ## Usage
-
 
 ```crystal
 require "edits"
@@ -97,10 +94,10 @@ Edits::JaroWinkler.distance "information", "informant"
 
 ## Contributing
 
-1. Fork it ( https://github.com/tcrouch/edits.cr/fork )
+1. [Fork it](https://github.com/tcrouch/edits.cr/fork)
 2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
 ## Contributors
