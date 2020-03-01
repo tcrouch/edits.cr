@@ -62,7 +62,7 @@ module Edits
         max_bound = (i + range) <= last2 ? (i + range) : last2
 
         min_bound.upto(max_bound) do |j|
-          next unless seq2_flags[j] != true && seq2[j] == seq1[i]
+          next unless !seq2_flags[j] && seq2[j] == seq1[i]
 
           seq2_flags[j] = true
           seq1_flags[i] = true
@@ -79,7 +79,8 @@ module Edits
       # Pass 2: determine number of half-transpositions
       seq1_length.times do |i|
         # find a match in first string
-        next unless seq1_flags[i] == true
+        next unless seq1_flags[i]
+
         # go to location of next match on second string
         until seq2_flags[j]
           j += 1
