@@ -11,7 +11,7 @@ module Edits
       end
     end
 
-    def self.distance(seq1 : Int32 | Int64, seq2 : Int32 | Int64)
+    def self.distance(seq1 : Int, seq2 : Int)
       (seq1 ^ seq2).popcount
     end
   end
