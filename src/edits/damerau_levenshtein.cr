@@ -10,72 +10,68 @@ module Edits
     # Calculate the Damerau/Levenshtein distance of two sequences.
     #
     # `DamerauLevenshtein.distance("acer", "earn")    # => 3`
-    def self.distance(str1, str2)
+    def self.distance(str1, str2) : Int
       # array of codepoints outperforms String
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
-      seq1, seq2 = seq2, seq1 if seq1.size > seq2.size
-
       rows = seq1.size
       cols = seq2.size
+      seq1, seq2, rows, cols = seq2, seq1, cols, rows if rows > cols
+
       return cols if rows.zero?
       return rows if cols.zero?
 
-      # 'infinite' edit distance for padding cost matrix.
-      # Can be any value greater than max[rows, cols]
+      # 'infinite' edit distance to pad cost matrix.
+      # Any value > max[rows, cols]
       inf = cols + 1
 
-      # Initialize first two rows of cost matrix.
-      # Full initial state where cols=3, rows=2 (inf=5) would be:
-      #   [[5, 5, 5, 5, 5],
-      #    [5, 0, 1, 2, 3],
-      #    [5, 1, 0, 0, 0],
-      #    [5, 2, 0, 0, 0]]
-      matrix = [Array.new(cols + 2, inf)]
-      matrix << 0.upto(cols).to_a.unshift(inf)
-
       # element => last row seen
-      item_history = Hash(Int32, Int32).new(0)
+      row_history = Hash(Int32, Int32).new(0)
 
-      1.upto(rows) do |row|
-        # generate next row of cost matrix
-        new_row = Array.new(cols + 2, 0)
-        new_row[0] = inf
-        new_row[1] = row
-        matrix << new_row
+      # initialize alphabet-keyed cost matrix
+      curr_row = 0.upto(cols).to_a
+      matrix = Hash(Int32, typeof(curr_row)).new
 
-        last_match_col = 0
-        seq1_item = seq1[row - 1]
+      rows.times do |row|
+        seq1_item = seq1[row]
+        match_col = 0
 
-        1.upto(cols) do |col|
-          seq2_item = seq2[col - 1]
-          last_match_row = item_history[seq2_item]
+        # rotate row arrays & generate next
+        matrix[seq1_item] = last_row = curr_row
+        curr_row = Array.new(cols + 1, inf)
+        curr_row[0] = row + 1
 
-          transposition = 1 + matrix[last_match_row][last_match_col]
-          transposition += row - last_match_row - 1
-          transposition += col - last_match_col - 1
+        cols.times do |col|
+          seq2_item = seq2[col]
+          sub_cost = seq1_item == seq2_item ? 0 : 1
 
-          # TODO: do addition/deletion need to be considered when
-          # seq1_item == seq2_item ?
-          substitution = matrix[row][col] + (seq1_item == seq2_item ? 0 : 1)
-          addition = matrix[row + 1][col] + 1
-          deletion = matrix[row][col + 1] + 1
+          # | Xs | Xd |
+          # | Xi | ?  |
+          # substitution, deletion, insertion
+          cost = Math.min(
+            last_row[col] + sub_cost,
+            last_row[col + 1] + 1
+          )
+          cost = Math.min(cost, curr_row[col] + 1)
 
-          # step cost is min of possible operation costs
-          cost = Math.min(substitution, addition)
-          cost = Math.min(cost, deletion)
-          cost = Math.min(cost, transposition)
+          # transposition cost
+          # skip missed matrix lookup (inf cost)
+          if sub_cost > 0 && row > 0 && (m = matrix[seq2_item]?)
+            transpose = 1 + m[match_col] \
+              + (row - row_history[seq2_item] - 1) \
+                + (col - match_col - 1)
+            cost = Math.min(cost, transpose)
+          end
 
-          matrix[row + 1][col + 1] = cost
-
-          last_match_col = col if seq1_item == seq2_item
+          match_col = col if sub_cost == 0
+          curr_row[col + 1] = cost
         end
 
-        item_history[seq1_item] = row
+        row_history[seq1_item] = row
       end
 
-      matrix[rows + 1][cols + 1]
+      curr_row[cols]
     end
   end
 end
