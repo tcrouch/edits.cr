@@ -10,7 +10,8 @@ module Edits
       case strings.size
       when 0 then raise Enumerable::EmptyError.new
       when 1 then return strings.first
-      else nil
+      else
+        nil
       end
 
       min_s = strings[0]
