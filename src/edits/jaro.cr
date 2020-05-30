@@ -62,7 +62,7 @@ module Edits
         max_bound = (i + range) <= last2 ? (i + range) : last2
 
         min_bound.upto(max_bound) do |j|
-          next unless !seq2_flags[j] && seq2[j] == seq1[i]
+          next if seq2_flags[j] || seq2[j] != seq1[i]
 
           seq2_flags[j] = true
           seq1_flags[i] = true
