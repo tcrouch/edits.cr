@@ -26,8 +26,7 @@ module Edits
       m, t = matches(seq1, seq2)
       return 0.0 if m == 0
 
-      m = m.to_f
-      (1.0 / 3) * ((m / str1.size) + (m / str2.size) + ((m - t) / m))
+      ((m / seq1.size) + (m / seq2.size) + ((m - t) / m)) / 3
     end
 
     # Calculate Jaro distance, where 0 is an exact match and 1
