@@ -41,9 +41,10 @@ module Edits
 
     # Calculate number of Jaro matches and transpositions
     private def self.matches(seq1, seq2)
-      # search range: (max(|A|, |B|) / 2) - 1
       seq1, seq2 = seq2, seq1 if seq1.size > seq2.size
       seq1_length = seq1.size
+
+      # search range: (max(|A|, |B|) / 2) - 1
       range = (seq2.size // 2) - 1
       range = 0 if range < 0
 
@@ -51,16 +52,16 @@ module Edits
       seq2_flags = BitArray.new(seq2.size, false)
 
       matches = 0
-      last2 = seq2.size - 1
+      max_bound = seq2.size - 1
 
       # Pass 1:
       # - determine number of matches
       # - initialize transposition flags
       seq1_length.times do |i|
-        min_bound = (i >= range) ? i - range : 0
-        max_bound = (i + range) <= last2 ? (i + range) : last2
+        lower_bound = (i >= range) ? i - range : 0
+        upper_bound = (i + range) <= max_bound ? (i + range) : max_bound
 
-        min_bound.upto(max_bound) do |j|
+        lower_bound.upto(upper_bound) do |j|
           next if seq2_flags[j] || seq2[j] != seq1[i]
 
           seq2_flags[j] = true
