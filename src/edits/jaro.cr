@@ -17,11 +17,11 @@ module Edits
     # # => 0.9023569023569024
     # ```
     def self.similarity(str1, str2)
-      return 1.0 if str1 == str2
-      return 0.0 if str1.empty? || str2.empty?
-
       seq1 = str1.codepoints
       seq2 = str2.codepoints
+
+      return 1.0 if seq1 == seq2
+      return 0.0 if seq1.empty? || seq2.empty?
 
       m, t = matches(seq1, seq2)
       return 0.0 if m == 0
