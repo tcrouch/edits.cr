@@ -18,7 +18,9 @@ module Edits
     #
     # Note: Not a true distance metric, fails to satisfy triangle inequality.
     #
-    # `RestrictedEdit.distance("iota", "atom")    # => 3`
+    # ```
+    # RestrictedEdit.distance("iota", "atom") # => 3
+    # ```
     def self.distance(str1, str2)
       # array of codepoints outperforms String
       seq1 = str1.codepoints

@@ -12,7 +12,9 @@ module Edits
     #
     # Note: a true distance metric, satisfies triangle inequality.
     #
-    # `Levenshtein.distance("sand", "hands")    # => 2`
+    # ```
+    # Levenshtein.distance("sand", "hands") # => 2
+    # ```
     def self.distance(str1, str2)
       # array of codepoints outperforms String
       seq1 = str1.codepoints
@@ -61,8 +63,8 @@ module Edits
     # a maximum value. For low max values, this can have better performance.
     #
     # ```
-    # Levenshtein.distance "cloud", "crayon"             # => 5
-    # Levenshtein.distance_with_max "cloud", "crayon", 2 # => 2
+    # Levenshtein.distance("cloud", "crayon")    # => 5
+    # Levenshtein.distance("cloud", "crayon", 2) # => 2
     # ```
     def self.distance(str1, str2, max : Int)
       seq1 = str1.codepoints
