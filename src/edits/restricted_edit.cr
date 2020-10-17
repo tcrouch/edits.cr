@@ -91,7 +91,7 @@ module Edits
     # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5
     # Edits::RestrictedEdit.distance("cloud", "crayon", 2) # => 2
     # ```
-    def self.distance(str1, str2, max : Int32)
+    def self.distance(str1, str2, max : Int)
       seq1 = str1.codepoints
       seq2 = str2.codepoints
 
