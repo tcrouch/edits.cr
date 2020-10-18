@@ -32,16 +32,16 @@ module Edits
       row_history = Hash(Int32, Int32).new(0)
 
       # initialize alphabet-keyed cost matrix
-      curr_row = 0.upto(cols).to_a
+      curr_row = Slice.new(cols + 1) { |i| i }
       matrix = Hash(Int32, typeof(curr_row)).new
 
       rows.times do |row|
         seq1_item = seq1[row]
         match_col = 0
 
-        # rotate row arrays & generate next
+        # rotate matrix rows & generate next
         matrix[seq1_item] = last_row = curr_row
-        curr_row = Array.new(cols + 1, inf)
+        curr_row = Slice.new(cols + 1, inf)
         curr_row[0] = row + 1
 
         cols.times do |col|

@@ -38,18 +38,18 @@ module Edits
       inf = rows + 1
 
       # retain previous two rows of cost matrix
-      lastlast_row = Array(Int32).new(cols + 1, inf)
-      last_row = Array(Int32).new(cols + 1, inf)
+      lastlast_row = Slice(Int32).new(cols + 1, inf)
+      last_row = Slice(Int32).new(cols + 1, inf)
 
       # Initialize first row of cost matrix.
       # Full initial state where cols=3, rows=2 would be:
       #   [[0, 1, 2, 3],
       #    [1, 0, 0, 0],
       #    [2, 0, 0, 0]]
-      curr_row = 0.upto(cols).to_a
+      curr_row = Slice.new(cols + 1) { |i| i }
 
       rows.times do |row|
-        # rotate row arrays
+        # rotate matrix rows
         curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
 
         curr_row[0] = row + 1
@@ -111,12 +111,12 @@ module Edits
 
       # retain previous two rows of cost matrix,
       # padded with "inf" as matrix is not fully evaluated
-      lastlast_row = Array.new(cols + 1, inf)
-      last_row = Array.new(cols + 1, inf)
-      curr_row = 0.upto(cols).to_a
+      lastlast_row = Slice.new(cols + 1, inf)
+      last_row = Slice.new(cols + 1, inf)
+      curr_row = Slice.new(cols + 1) { |i| i }
 
       rows.times do |row|
-        # rotate row arrays
+        # rotate matrix rows
         curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
 
         # Ukkonen cut-off

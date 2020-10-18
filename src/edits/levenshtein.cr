@@ -33,7 +33,7 @@ module Edits
       #    [1, 0, 0],
       #    [2, 0, 0]
       #    [3, 0, 0]]
-      last_row = Pointer(Int32).malloc(cols + 1) { |i| i }
+      last_row = Slice(Int32).new(cols + 1) { |i| i }
 
       rows.times do |row|
         last_col = row + 1
@@ -83,7 +83,7 @@ module Edits
       inf = rows + 1
 
       # retain previous row of cost matrix
-      last_row = Pointer(Int32).malloc(cols + 1) { |i| i }
+      last_row = Slice(Int32).new(cols + 1) { |i| i }
 
       rows.times do |row|
         # Ukkonen cut-off
