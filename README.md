@@ -25,61 +25,54 @@ dependencies:
 require "edits"
 ```
 
-### Levenshtein
+### Levenshtein variants
 
-Edit distance, taking into account deletion, addition and substitution.
+Calculate the edit distance between two sequences with variants of the
+Levenshtein distance algorithm.
 
 ```crystal
 Edits::Levenshtein.distance "raked", "bakers"
 # => 3
-Edits::Levenshtein.distance "iota", "atom"
-# => 4
-Edits::Levenshtein.distance "acer", "earn"
-# => 4
-
-# Max distance
-Edits::Levenshtein.distance "iota", "atom", 2
-# => 2
-Edits::Levenshtein.most_similar "atom", ["atlas", "tram", "rota", "racer"]
-# => "atlas"
-```
-
-### Restricted Edit (Optimal Alignment)
-
-Edit distance, accounting for deletion, addition, substitution and
-transposition (two adjacent characters are swapped). This variant is
-restricted by the condition that no sub-string is edited more than once.
-
-```crystal
-Edits::RestrictedEdit.distance "raked", "bakers"
-# => 3
 Edits::RestrictedEdit.distance "iota", "atom"
-# => 3
-Edits::RestrictedEdit.distance "acer", "earn"
-# => 4
-
-# Max distance
-Edits::RestrictedEdit.distance "iota", "atom", 2
-# => 2
-Edits::RestrictedEdit.most_similar "atom", ["iota", "tome", "mown", "tame"]
-# => "tome"
-```
-
-### Damerau-Levenshtein
-
-Edit distance, accounting for deletions, additions, substitution and
-transposition (two adjacent characters are swapped).
-
-```crystal
-Edits::DamerauLevenshtein.distance "raked", "bakers"
-# => 3
-Edits::DamerauLevenshtein.distance "iota", "atom"
 # => 3
 Edits::DamerauLevenshtein.distance "acer", "earn"
 # => 3
 ```
 
+- **Levenshtein** edit distance, counting insertion, deletion and
+  substitution.
+- **Restricted Damerau-Levenshtein** edit distance (aka **Optimal Alignment**),
+  counting insertion, deletion, substitution and transposition
+  (adjacent symbols swapped). Restricted by the condition that no substring is
+  edited more than once.
+- **Damerau-Levenshtein** edit distance, counting insertion, deletion,
+  substitution and transposition (adjacent symbols swapped).
+
+|                      | Levenshtein | Restricted Damerau-Levenshtein | Damerau-Levenshtein |
+|----------------------|-------------|--------------------------------|---------------------|
+| "raked" vs. "bakers" | 3           | 3                              | 3                   |
+| "iota" vs. "atom"    | 4           | 3                              | 3                   |
+| "acer" vs. "earn"    | 4           | 4                              | 3                   |
+
+Levenshtein and Restricted Edit distances accept an optional maximum bound.
+
+```crystal
+Edits::Levenshtein.distance "fghijk", "abcde", 3
+# => 3
+```
+
+The convenience method `most_similar` searches for the best match to a
+given sequence from a collection. It is similar to using `min_by`, but leverages
+a maximum bound.
+
+```crystal
+Edits::RestrictedEdit.most_similar "atom", ["iota", "tome", "mown", "tame"]
+# => "tome"
+```
+
 ### Jaro & Jaro-Winkler
+
+Calculate the Jaro and Jaro-Winkler similarity/distance of two sequences.
 
 ```crystal
 Edits::Jaro.similarity "information", "informant"
