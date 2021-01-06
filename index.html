@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="0.7.0">
+<meta name="crystal_docs.project_name" content="edits">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="edits">
+  <title>edits 0.7.0</title>
+  <script type="text/javascript">
+  CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          edits
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.7.0
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="edits/Edits" data-name="edits">
+      <a href="Edits.html">Edits</a>
+      
+        <ul>
+  
+  <li class=" " data-id="edits/Edits/Compare" data-name="edits::compare">
+      <a href="Edits/Compare.html">Compare</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/DamerauLevenshtein" data-name="edits::dameraulevenshtein">
+      <a href="Edits/DamerauLevenshtein.html">DamerauLevenshtein</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/Hamming" data-name="edits::hamming">
+      <a href="Edits/Hamming.html">Hamming</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/Jaro" data-name="edits::jaro">
+      <a href="Edits/Jaro.html">Jaro</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/JaroWinkler" data-name="edits::jarowinkler">
+      <a href="Edits/JaroWinkler.html">JaroWinkler</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/Levenshtein" data-name="edits::levenshtein">
+      <a href="Edits/Levenshtein.html">Levenshtein</a>
+      
+    </li>
+  
+  <li class=" " data-id="edits/Edits/RestrictedEdit" data-name="edits::restrictededit">
+      <a href="Edits/RestrictedEdit.html">RestrictedEdit</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1><a id="edits" class="anchor" href="#edits">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>edits</h1>
+
+<p><a href="https://travis-ci.org/tcrouch/edits.cr" target="_blank"><img src="https://travis-ci.org/tcrouch/edits.cr.svg" alt="Build Status"/></a>
+<a href="https://www.codacy.com/manual/t.crouch/edits.cr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tcrouch/edits.cr&amp;utm_campaign=Badge_Grade" target="_blank"><img src="https://api.codacy.com/project/badge/Grade/55107996a0e444a3b273d265780ccc38" alt="Codacy Badge"/></a></p>
+
+<p>A collection of edit distance algorithms in Crystal.</p>
+
+<p>Includes Levenshtein, Restricted Edit (Optimal Alignment) and
+Damerau-Levenshtein distances, and Jaro and Jaro-Winkler similarity.</p>
+
+<h2><a id="installation" class="anchor" href="#installation">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Installation</h2>
+
+<p>Add this to your application's <code>shard.yml</code>:</p>
+
+<pre><code class="language-yaml">dependencies:
+  edits:
+    github: tcrouch/edits.cr</code></pre>
+
+<h2><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h2>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;edits&quot;</span></code></pre>
+
+<h3><a id="levenshtein" class="anchor" href="#levenshtein">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Levenshtein</h3>
+
+<p>Edit distance, taking into account deletion, addition and substitution.</p>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
+<span class="c"># =&gt; 3</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
+<span class="c"># =&gt; 4</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
+<span class="c"># =&gt; 4</span>
+
+<span class="c"># Max distance</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>, <span class="n">2</span>
+<span class="c"># =&gt; 2</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.most_similar <span class="s">&quot;atom&quot;</span>, [<span class="s">&quot;atlas&quot;</span>, <span class="s">&quot;tram&quot;</span>, <span class="s">&quot;rota&quot;</span>, <span class="s">&quot;racer&quot;</span>]
+<span class="c"># =&gt; &quot;atlas&quot;</span></code></pre>
+
+<h3><a id="restricted-edit-optimal-alignment" class="anchor" href="#restricted-edit-optimal-alignment">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Restricted Edit (Optimal Alignment)</h3>
+
+<p>Edit distance, accounting for deletion, addition, substitution and
+transposition (two adjacent characters are swapped). This variant is
+restricted by the condition that no sub-string is edited more than once.</p>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
+<span class="c"># =&gt; 3</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
+<span class="c"># =&gt; 3</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
+<span class="c"># =&gt; 4</span>
+
+<span class="c"># Max distance</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>, <span class="n">2</span>
+<span class="c"># =&gt; 2</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.most_similar <span class="s">&quot;atom&quot;</span>, [<span class="s">&quot;iota&quot;</span>, <span class="s">&quot;tome&quot;</span>, <span class="s">&quot;mown&quot;</span>, <span class="s">&quot;tame&quot;</span>]
+<span class="c"># =&gt; &quot;tome&quot;</span></code></pre>
+
+<h3><a id="damerau-levenshtein" class="anchor" href="#damerau-levenshtein">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Damerau-Levenshtein</h3>
+
+<p>Edit distance, accounting for deletions, additions, substitution and
+transposition (two adjacent characters are swapped).</p>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
+<span class="c"># =&gt; 3</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
+<span class="c"># =&gt; 3</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
+<span class="c"># =&gt; 3</span></code></pre>
+
+<h3><a id="jaro-jaro-winkler" class="anchor" href="#jaro-jaro-winkler">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Jaro & Jaro-Winkler</h3>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">Jaro</span>.similarity <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
+<span class="c"># =&gt; 0.90235690235690236</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">Jaro</span>.distance <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
+<span class="c"># =&gt; 0.097643097643097643</span>
+
+<span class="t">Edits</span><span class="t">::</span><span class="t">JaroWinkler</span>.similarity <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
+<span class="c"># =&gt; 0.94141414141414137</span>
+<span class="t">Edits</span><span class="t">::</span><span class="t">JaroWinkler</span>.distance <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
+<span class="c"># =&gt; 0.05858585858585863</span></code></pre>
+
+<h2><a id="contributing" class="anchor" href="#contributing">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributing</h2>
+
+<ol><li><a href="https://github.com/tcrouch/edits.cr/fork" target="_blank">Fork it</a></li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+
+<h2><a id="contributors" class="anchor" href="#contributors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributors</h2>
+
+<ul><li><a href="https://github.com/tcrouch" target="_blank">[tcrouch</a> Tom Crouch - creator, maintainer</li></ul>
+</div>
+</body>
+</html>
