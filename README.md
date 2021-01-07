@@ -1,7 +1,8 @@
 # edits
 
-[![Build Status](https://travis-ci.org/tcrouch/edits.cr.svg)](https://travis-ci.org/tcrouch/edits.cr)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/55107996a0e444a3b273d265780ccc38)](https://www.codacy.com/manual/t.crouch/edits.cr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tcrouch/edits.cr&amp;utm_campaign=Badge_Grade)
+[![Travis (.com)](https://img.shields.io/travis/com/tcrouch/edits.cr)](https://www.travis-ci.com/github/tcrouch/edits.cr)
+[![Codacy grade](https://img.shields.io/codacy/grade/55107996a0e444a3b273d265780ccc38)](https://www.codacy.com/manual/t.crouch/edits.cr)
+[![Documentation](https://img.shields.io/badge/api-docs-informational)](https://tcrouch.github.io/edits.cr)
 
 A collection of edit distance algorithms in Crystal.
 
