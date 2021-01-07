@@ -11,6 +11,7 @@ module Edits
       end
     end
 
+    # Calculate Hamming distance between the bits comprising two integers
     def self.distance(seq1 : Int, seq2 : Int)
       (seq1 ^ seq2).popcount
     end

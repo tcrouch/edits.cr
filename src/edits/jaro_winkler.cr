@@ -4,21 +4,23 @@ module Edits
   # When Jaro similarity exceeds a threshold, the Winkler extension adds
   # additional weighting if a common prefix exists.
   #
-  # `Sw = Sj + (l * p * (1 - Sj))`
-  #
-  # Where `Sj` is Jaro, `l` is prefix length, and `p` is prefix weight
-  # see https://en.wikipedia.org/wiki/Jaro-Winkler_distance
+  # See also:
+  # * [Wikipedia](https://en.wikipedia.org/wiki/Jaro-Winkler_distance)
   module JaroWinkler
-    # prefix scaling factor for jaro-winkler metric. Default is 0.1
+    # Prefix scaling factor for jaro-winkler metric. Default is 0.1
     # Should not exceed 0.25 or metric range will leave 0..1
     WINKLER_PREFIX_WEIGHT = 0.1
 
-    # Threshold for boosting Jaro with winkler prefix multiplier.
+    # Threshold for boosting Jaro with Winkler prefix multiplier.
     # Default is 0.7
     WINKLER_THRESHOLD = 0.7
 
     # Calculate Jaro-Winkler similarity, where 1 is an exact match and 0 is
     # no similarity.
+    #
+    # `Sw = Sj + (l * p * (1 - Sj))`
+    #
+    # Where `Sj` is Jaro, `l` is prefix length, and `p` is prefix weight
     #
     # ```
     # JaroWinkler.similarity("information", "informant")
@@ -48,6 +50,8 @@ module Edits
 
     # Calculate Jaro-Winkler distance, where 0 is an exact match and 1
     # is no similarity.
+    #
+    # `Dw = 1 - similarity`
     #
     # ```
     # JaroWinkler.distance "information", "informant"

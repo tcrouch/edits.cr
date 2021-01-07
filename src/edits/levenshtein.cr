@@ -1,5 +1,5 @@
 module Edits
-  # Implementation of Levenshtein distance algorithm.
+  # Levenshtein edit distance.
   #
   # Determines distance between two string by counting edits, identifying:
   # * Insertion
@@ -59,8 +59,8 @@ module Edits
       last_row[cols]
     end
 
-    # Calculate the Levenshtein (edit) distance of two sequences, bounded by
-    # a maximum value. For low max values, this can have better performance.
+    # Calculate the Levenshtein (edit) distance of two sequences, bounded
+    # by a maximum value. For low max values, this can be highly performant.
     #
     # ```
     # Levenshtein.distance("cloud", "crayon")    # => 5

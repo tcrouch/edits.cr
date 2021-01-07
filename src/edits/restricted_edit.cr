@@ -1,6 +1,5 @@
 module Edits
-  # Implements Restricted Damerau-Levenshtein distance (Optimal Alignment)
-  # algorithm.
+  # Restricted Damerau-Levenshtein edit distance (Optimal Alignment).
   #
   # Determines distance between two strings by counting edits, identifying:
   # * Insertion
@@ -88,6 +87,7 @@ module Edits
 
     # Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
     # of two sequences, bounded by a maximum value.
+    # For low max values, this can be highly performant.
     #
     # ```
     # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5

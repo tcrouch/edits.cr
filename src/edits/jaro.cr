@@ -3,14 +3,13 @@ require "bit_array"
 module Edits
   # Jaro similarity measure.
   #
-  # `Sj = 1/3 * ((m / |A|) + (m / |B|) + ((m - t) / m))`
-  #
-  # Where `m` is #matches and `t` is #transposes
-  #
-  # see https://en.wikipedia.org/wiki/Jaro-Winkler_distance
+  # [See wiki](https://en.wikipedia.org/wiki/Jaro-Winkler_distance)
   module Jaro
-    # Calculate Jaro similarity, where 1 is an exact match and 0 is
-    # no similarity.
+    # Calculate Jaro similarity of two sequences, where 1 is an exact match
+    # and 0 is no similarity.
+    #
+    # `Sj = 1/3 * ((m / |A|) + (m / |B|) + ((m - t) / m))`
+    # Where `m` is #matches and `t` is #transposes
     #
     # ```
     # Jaro.distance("information", "informant")
@@ -29,8 +28,11 @@ module Edits
       ((m / seq1.size) + (m / seq2.size) + ((m - t) / m)) / 3
     end
 
-    # Calculate Jaro distance, where 0 is an exact match and 1
-    # is no similarity.
+    # Calculate Jaro distance, where 0 is an exact match
+    # and 1 is no similarity.
+    #
+    # `Dj = 1 - similarity`
+    #
     # ```
     # Jaro.distance "information", "informant"
     # # => 0.097643097643097643

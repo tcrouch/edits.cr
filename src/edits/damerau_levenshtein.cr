@@ -1,5 +1,5 @@
 module Edits
-  # Implemention of the Damerau/Levenshtein distance algorithm.
+  # Damerau-Levenshtein edit distance.
   #
   # Determines distance between two strings by counting edits, identifying:
   # * Insertion
@@ -7,7 +7,7 @@ module Edits
   # * Substitution
   # * Adjacent transposition
   module DamerauLevenshtein
-    # Calculate the Damerau/Levenshtein distance of two sequences.
+    # Calculate the Damerau-Levenshtein distance of two sequences.
     #
     # ```
     # DamerauLevenshtein.distance("acer", "earn") # => 3
