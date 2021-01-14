@@ -138,71 +138,54 @@ Damerau-Levenshtein distances, and Jaro and Jaro-Winkler similarity.</p>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;edits&quot;</span></code></pre>
 
-<h3><a id="levenshtein" class="anchor" href="#levenshtein">
+<h3><a id="levenshtein-variants" class="anchor" href="#levenshtein-variants">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Levenshtein</h3>
+</a>Levenshtein variants</h3>
 
-<p>Edit distance, taking into account deletion, addition and substitution.</p>
+<p>Calculate the edit distance between two sequences with variants of the
+Levenshtein distance algorithm.</p>
 
 <pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
 <span class="c"># =&gt; 3</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
-<span class="c"># =&gt; 4</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
-<span class="c"># =&gt; 4</span>
-
-<span class="c"># Max distance</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>, <span class="n">2</span>
-<span class="c"># =&gt; 2</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.most_similar <span class="s">&quot;atom&quot;</span>, [<span class="s">&quot;atlas&quot;</span>, <span class="s">&quot;tram&quot;</span>, <span class="s">&quot;rota&quot;</span>, <span class="s">&quot;racer&quot;</span>]
-<span class="c"># =&gt; &quot;atlas&quot;</span></code></pre>
-
-<h3><a id="restricted-edit-optimal-alignment" class="anchor" href="#restricted-edit-optimal-alignment">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>Restricted Edit (Optimal Alignment)</h3>
-
-<p>Edit distance, accounting for deletion, addition, substitution and
-transposition (two adjacent characters are swapped). This variant is
-restricted by the condition that no sub-string is edited more than once.</p>
-
-<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
-<span class="c"># =&gt; 3</span>
 <span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
-<span class="c"># =&gt; 3</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
-<span class="c"># =&gt; 4</span>
-
-<span class="c"># Max distance</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>, <span class="n">2</span>
-<span class="c"># =&gt; 2</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.most_similar <span class="s">&quot;atom&quot;</span>, [<span class="s">&quot;iota&quot;</span>, <span class="s">&quot;tome&quot;</span>, <span class="s">&quot;mown&quot;</span>, <span class="s">&quot;tame&quot;</span>]
-<span class="c"># =&gt; &quot;tome&quot;</span></code></pre>
-
-<h3><a id="damerau-levenshtein" class="anchor" href="#damerau-levenshtein">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>Damerau-Levenshtein</h3>
-
-<p>Edit distance, accounting for deletions, additions, substitution and
-transposition (two adjacent characters are swapped).</p>
-
-<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;raked&quot;</span>, <span class="s">&quot;bakers&quot;</span>
-<span class="c"># =&gt; 3</span>
-<span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;iota&quot;</span>, <span class="s">&quot;atom&quot;</span>
 <span class="c"># =&gt; 3</span>
 <span class="t">Edits</span><span class="t">::</span><span class="t">DamerauLevenshtein</span>.distance <span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>
 <span class="c"># =&gt; 3</span></code></pre>
+
+<ul><li><strong>Levenshtein</strong> edit distance, counting insertion, deletion and
+  substitution.</li><li><strong>Restricted Damerau-Levenshtein</strong> edit distance (aka <strong>Optimal Alignment</strong>),
+  counting insertion, deletion, substitution and transposition
+  (adjacent symbols swapped). Restricted by the condition that no substring is
+  edited more than once.</li><li><strong>Damerau-Levenshtein</strong> edit distance, counting insertion, deletion,
+  substitution and transposition (adjacent symbols swapped).</li></ul>
+
+<p>|                      | Levenshtein | Restricted Damerau-Levenshtein | Damerau-Levenshtein |
+|----------------------|-------------|--------------------------------|---------------------|
+| "raked" vs. "bakers" | 3           | 3                              | 3                   |
+| "iota" vs. "atom"    | 4           | 3                              | 3                   |
+| "acer" vs. "earn"    | 4           | 4                              | 3                   |</p>
+
+<p>Levenshtein and Restricted Edit distances accept an optional maximum bound.</p>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">Levenshtein</span>.distance <span class="s">&quot;fghijk&quot;</span>, <span class="s">&quot;abcde&quot;</span>, <span class="n">3</span>
+<span class="c"># =&gt; 3</span></code></pre>
+
+<p>The convenience method <code>most_similar</code> searches for the best match to a
+given sequence from a collection. It is similar to using <code>min_by</code>, but leverages
+a maximum bound.</p>
+
+<pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.most_similar <span class="s">&quot;atom&quot;</span>, [<span class="s">&quot;iota&quot;</span>, <span class="s">&quot;tome&quot;</span>, <span class="s">&quot;mown&quot;</span>, <span class="s">&quot;tame&quot;</span>]
+<span class="c"># =&gt; &quot;tome&quot;</span></code></pre>
 
 <h3><a id="jaro-jaro-winkler" class="anchor" href="#jaro-jaro-winkler">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Jaro & Jaro-Winkler</h3>
+
+<p>Calculate the Jaro and Jaro-Winkler similarity/distance of two sequences.</p>
 
 <pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">Jaro</span>.similarity <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
 <span class="c"># =&gt; 0.90235690235690236</span>
