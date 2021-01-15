@@ -10,7 +10,7 @@ module Edits
 
     # Calculate the Levenshtein (edit) distance of two sequences.
     #
-    # Note: a true distance metric, satisfies triangle inequality.
+    # NOTE: a true distance metric, satisfies triangle inequality.
     #
     # ```
     # Levenshtein.distance("sand", "hands") # => 2

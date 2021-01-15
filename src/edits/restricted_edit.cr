@@ -15,7 +15,7 @@ module Edits
     # Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
     # of two sequences.
     #
-    # Note: Not a true distance metric, fails to satisfy triangle inequality.
+    # NOTE: Not a true distance metric, fails to satisfy triangle inequality.
     #
     # ```
     # RestrictedEdit.distance("iota", "atom") # => 3

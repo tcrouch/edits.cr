@@ -26,7 +26,7 @@ module Edits
     # JaroWinkler.similarity("information", "informant")
     # # => 0.9414141414141414
     # ```
-    # Note: not a true distance metric, fails to satisfy triangle inequality.
+    # NOTE: not a true distance metric, fails to satisfy triangle inequality.
     def self.similarity(str1, str2,
                         threshold = WINKLER_THRESHOLD,
                         weight = WINKLER_PREFIX_WEIGHT)
