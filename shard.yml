@@ -1,6 +1,8 @@
 name: edits
 version: 0.7.0
 
+crystal: ">= 0.35.0"
+
 authors:
   - Tom Crouch <tom.crouch@gmail.com>
 description: |
