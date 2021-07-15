@@ -1,3 +1,3 @@
 module Edits
-  VERSION = "0.7.0"
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 end
