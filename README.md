@@ -1,5 +1,6 @@
 # edits
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tcrouch/edits.cr/CI/master)
 [![Codacy grade](https://img.shields.io/codacy/grade/55107996a0e444a3b273d265780ccc38)](https://www.codacy.com/manual/t.crouch/edits.cr)
 [![Documentation](https://img.shields.io/badge/api-docs-informational)](https://tcrouch.github.io/edits.cr)
 
