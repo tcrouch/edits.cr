@@ -16,16 +16,13 @@ module Edits
     # # => 0.9023569023569024
     # ```
     def self.similarity(str1, str2)
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      return 1.0 if str1 == str2
+      return 0.0 if str1.empty? || str2.empty?
 
-      return 1.0 if seq1 == seq2
-      return 0.0 if seq1.empty? || seq2.empty?
-
-      m, t = matches(seq1, seq2)
+      m, t = matches(str1.codepoints, str2.codepoints)
       return 0.0 if m == 0
 
-      ((m / seq1.size) + (m / seq2.size) + ((m - t) / m)) / 3
+      ((m / str1.size) + (m / str2.size) + ((m - t) / m)) / 3
     end
 
     # Calculate Jaro distance, where 0 is an exact match

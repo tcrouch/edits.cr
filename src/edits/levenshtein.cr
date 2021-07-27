@@ -16,16 +16,15 @@ module Edits
     # Levenshtein.distance("sand", "hands") # => 2
     # ```
     def self.distance(str1, str2)
-      # array of codepoints outperforms String
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      rows = str1.size
+      cols = str2.size
+      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
-      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
-
-      rows = seq1.size
-      cols = seq2.size
       return cols if rows.zero?
       return rows if cols.zero?
+
+      seq1 = str1.codepoints
+      seq2 = str2.codepoints
 
       # Initialize first row of cost matrix.
       # Full initial state where cols=2, rows=3 would be:
@@ -67,16 +66,16 @@ module Edits
     # Levenshtein.distance("cloud", "crayon", 2) # => 2
     # ```
     def self.distance(str1, str2, max : Int)
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      rows = str1.size
+      cols = str2.size
+      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
-      seq1, seq2 = seq2, seq1 if seq1.size < seq2.size
-
-      rows = seq1.size
-      cols = seq2.size
       return cols > max ? max : cols if rows.zero?
       return rows > max ? max : rows if cols.zero?
       return max if rows - cols >= max
+
+      seq1 = str1.codepoints
+      seq2 = str2.codepoints
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value > max[rows, cols]

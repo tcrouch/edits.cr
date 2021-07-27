@@ -13,16 +13,15 @@ module Edits
     # DamerauLevenshtein.distance("acer", "earn") # => 3
     # ```
     def self.distance(str1, str2) : Int
-      # array of codepoints outperforms String
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
-
-      rows = seq1.size
-      cols = seq2.size
-      seq1, seq2, rows, cols = seq2, seq1, cols, rows if rows > cols
+      rows = str1.size
+      cols = str2.size
+      str1, str2, rows, cols = str2, str1, cols, rows if rows > cols
 
       return cols if rows.zero?
       return rows if cols.zero?
+
+      seq1 = str1.codepoints
+      seq2 = str2.codepoints
 
       # 'infinite' edit distance to pad cost matrix.
       # Any value > max[rows, cols]
