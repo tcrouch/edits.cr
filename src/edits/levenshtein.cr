@@ -23,8 +23,16 @@ module Edits
       return cols if rows.zero?
       return rows if cols.zero?
 
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+        _distance(str1.to_slice, str2.to_slice)
+      else
+        _distance(str1.codepoints, str2.codepoints)
+      end
+    end
+
+    private def self._distance(seq1, seq2) : Int
+      rows = seq1.size
+      cols = seq2.size
 
       # Initialize first row of cost matrix.
       # Full initial state where cols=2, rows=3 would be:
@@ -48,7 +56,7 @@ module Edits
           cost = Math.min(deletion, insertion)
           cost = Math.min(cost, substitution)
 
-          # overwrite previous row as we progress; old value no longer required
+          # overwrite previous row as we progress
           last_row[col] = last_col
           last_col = cost
         end
@@ -59,7 +67,7 @@ module Edits
     end
 
     # Calculate the Levenshtein (edit) distance of two sequences, bounded
-    # by a maximum value. For low max values, this can be highly performant.
+    # by a maximum value.
     #
     # ```
     # Levenshtein.distance("cloud", "crayon")    # => 5
@@ -74,8 +82,16 @@ module Edits
       return rows > max ? max : rows if cols.zero?
       return max if rows - cols >= max
 
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+        _distance(str1.to_slice, str2.to_slice, max)
+      else
+        _distance(str1.codepoints, str2.codepoints, max)
+      end
+    end
+
+    private def self._distance(seq1, seq2, max : Int) : Int
+      rows = seq1.size
+      cols = seq2.size
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value > max[rows, cols]

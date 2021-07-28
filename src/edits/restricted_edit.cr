@@ -28,8 +28,16 @@ module Edits
       return cols if rows.zero?
       return rows if cols.zero?
 
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+        _distance(str1.to_slice, str2.to_slice)
+      else
+        _distance(str1.codepoints, str2.codepoints)
+      end
+    end
+
+    private def self._distance(seq1, seq2) : Int
+      rows = seq1.size
+      cols = seq2.size
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value > max[rows, cols]
@@ -86,7 +94,6 @@ module Edits
 
     # Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
     # of two sequences, bounded by a maximum value.
-    # For low max values, this can be highly performant.
     #
     # ```
     # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5
@@ -101,8 +108,16 @@ module Edits
       return rows > max ? max : rows if cols.zero?
       return max if rows - cols >= max
 
-      seq1 = str1.codepoints
-      seq2 = str2.codepoints
+      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+        _distance(str1.to_slice, str2.to_slice, max)
+      else
+        _distance(str1.codepoints, str2.codepoints, max)
+      end
+    end
+
+    private def self._distance(seq1, seq2, max : Int) : Int
+      rows = seq1.size
+      cols = seq2.size
 
       # 'infinite' edit distance for padding cost matrix.
       # Can be any value > max[rows, cols]

@@ -19,7 +19,11 @@ module Edits
       return 1.0 if str1 == str2
       return 0.0 if str1.empty? || str2.empty?
 
-      m, t = matches(str1.codepoints, str2.codepoints)
+      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+        m, t = matches(str1.to_slice, str2.to_slice)
+      else
+        m, t = matches(str1.codepoints, str2.codepoints)
+      end
       return 0.0 if m == 0
 
       ((m / str1.size) + (m / str2.size) + ((m - t) / m)) / 3
