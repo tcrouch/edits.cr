@@ -14,6 +14,7 @@ describe Edits::Levenshtein do
     {"iota", "atom", 4},
     {"minion", "noir", 5},
     {"art", "ran", 3},
+    {"🍎🍏🍋🍊", "🍎🍏🍊🍋", 2},
 
     # complex transpositions
     {"a cat", "an abct", 4},
@@ -24,6 +25,7 @@ describe Edits::Levenshtein do
     {"tram", "rota", 4},
     {"information", "informant", 4},
     {"roam", "art", 4},
+    {"🍎🍐🍏🍊", "🍏🍎🍊🍋", 4},
   ]
 
   describe ".distance" do

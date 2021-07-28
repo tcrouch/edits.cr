@@ -2,63 +2,63 @@ require "../spec_helper"
 require "./levenshtein_shared"
 
 describe Edits::RestrictedEdit do
+  cases = SHARED_CASES + [
+    # simple transpositions
+    {"abc", "acb", 1},
+    {"abc", "bac", 1},
+    {"abcdef", "abcdfe", 1},
+    {"abcdefghij", "acbdegfhji", 3},
+    {"a cat", "an act", 2},
+    {"caned", "acned", 1},
+    {"acre", "acer", 1},
+    {"iota", "atom", 3},
+    {"minion", "noir", 4},
+    {"art", "ran", 2},
+    {"🍎🍏🍋🍊", "🍎🍏🍊🍋", 1},
+
+    # complex transpositions
+    {"a cat", "an abct", 4},
+    {"a cat", "a tc", 3},
+    {"raced", "dear", 5},
+    {"craned", "read", 4},
+    {"acer", "earn", 4},
+    {"tram", "rota", 4},
+    {"information", "informant", 4},
+    {"roam", "art", 4},
+    {"🍎🍐🍏🍊", "🍏🍎🍊🍋", 4},
+  ]
+
   describe ".distance" do
-    cases = SHARED_CASES + [
-      # swaps
-      {"abc", "acb", 1},
-      {"abc", "bac", 1},
-      {"abcdef", "abcdfe", 1},
-      {"abcdefghij", "acbdegfhji", 3},
-      {"a cat", "an act", 2},
-      {"caned", "acned", 1},
-      {"acre", "acer", 1},
-      {"iota", "atom", 3},
-      {"minion", "noir", 4},
-      {"art", "ran", 2},
+    context "with no max distance" do
+      cases.each do |(a, b, distance)|
+        it "returns #{distance} for #{a}, #{b}" do
+          result = Edits::RestrictedEdit.distance a, b
+          result.should eq distance
+        end
+      end
+    end
 
-      # complex transpositions
-      {"a cat", "an abct", 4},
-      {"a cat", "a tc", 3},
-      {"raced", "dear", 5},
-      {"craned", "read", 4},
-      {"acer", "earn", 4},
-      {"tram", "rota", 4},
-      {"information", "informant", 4},
-      {"roam", "art", 4},
-    ]
+    context "when max is 100" do
+      cases.each do |(a, b, distance)|
+        it "returns #{distance} for #{a}, #{b}" do
+          Edits::RestrictedEdit.distance(a, b, 100).should eq distance
+        end
+      end
+    end
 
-    describe ".distance" do
-      context "with no max distance" do
-        cases.each do |(a, b, distance)|
-          it "returns #{distance} for #{a}, #{b}" do
-            result = Edits::RestrictedEdit.distance a, b
-            result.should eq distance
-          end
+    context "when max is 4" do
+      cases.each do |(a, b, distance)|
+        it "returns lte 4 for #{a}, #{b}" do
+          Edits::RestrictedEdit.distance(a, b, 4).should be <= 4
         end
       end
 
-      context "when max is 100" do
-        cases.each do |(a, b, distance)|
-          it "returns #{distance} for #{a}, #{b}" do
-            Edits::RestrictedEdit.distance(a, b, 100).should eq distance
-          end
-        end
+      it "returns 4 for \"\", abcdfe" do
+        Edits::RestrictedEdit.distance("", "abcdfe", 4).should eq 4
       end
 
-      context "when max is 4" do
-        cases.each do |(a, b, distance)|
-          it "returns lte 4 for #{a}, #{b}" do
-            Edits::RestrictedEdit.distance(a, b, 4).should be <= 4
-          end
-        end
-
-        it "returns 4 for \"\", abcdfe" do
-          Edits::RestrictedEdit.distance("", "abcdfe", 4).should eq 4
-        end
-
-        it "returns 4 for abcdfe, \"\"" do
-          Edits::RestrictedEdit.distance("abcdfe", "", 4).should eq 4
-        end
+      it "returns 4 for abcdfe, \"\"" do
+        Edits::RestrictedEdit.distance("abcdfe", "", 4).should eq 4
       end
     end
   end
