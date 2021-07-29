@@ -20,7 +20,7 @@ module Edits
     # ```
     # RestrictedEdit.distance("iota", "atom") # => 3
     # ```
-    def self.distance(str1, str2)
+    def self.distance(str1, str2) : Int
       rows = str1.size
       cols = str2.size
       str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
@@ -99,7 +99,7 @@ module Edits
     # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5
     # Edits::RestrictedEdit.distance("cloud", "crayon", 2) # => 2
     # ```
-    def self.distance(str1, str2, max : Int)
+    def self.distance(str1, str2, max : Int) : Int
       rows = str1.size
       cols = str2.size
       str1, str2, rows, cols = str2, str1, cols, rows if rows < cols

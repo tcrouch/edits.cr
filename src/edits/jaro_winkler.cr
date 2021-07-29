@@ -29,7 +29,7 @@ module Edits
     # NOTE: not a true distance metric, fails to satisfy triangle inequality.
     def self.similarity(str1, str2,
                         threshold = WINKLER_THRESHOLD,
-                        weight = WINKLER_PREFIX_WEIGHT)
+                        weight = WINKLER_PREFIX_WEIGHT) : Float
       sj = Jaro.similarity(str1, str2)
 
       if sj > threshold
@@ -59,7 +59,7 @@ module Edits
     # ```
     def self.distance(str1, str2,
                       threshold = WINKLER_THRESHOLD,
-                      weight = WINKLER_PREFIX_WEIGHT)
+                      weight = WINKLER_PREFIX_WEIGHT) : Float
       1.0 - similarity(str1, str2, threshold, weight)
     end
   end

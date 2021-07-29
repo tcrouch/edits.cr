@@ -15,7 +15,7 @@ module Edits
     # Jaro.distance("information", "informant")
     # # => 0.9023569023569024
     # ```
-    def self.similarity(str1, str2)
+    def self.similarity(str1, str2) : Float
       return 1.0 if str1 == str2
       return 0.0 if str1.empty? || str2.empty?
 
@@ -38,7 +38,7 @@ module Edits
     # Jaro.distance "information", "informant"
     # # => 0.097643097643097643
     # ```
-    def self.distance(str1, str2)
+    def self.distance(str1, str2) : Float
       1.0 - similarity(str1, str2)
     end
 
