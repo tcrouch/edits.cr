@@ -45,13 +45,12 @@ module Edits
     # Calculate number of Jaro matches and transpositions
     private def self.matches(seq1, seq2)
       seq1, seq2 = seq2, seq1 if seq1.size > seq2.size
-      seq1_length = seq1.size
 
       # search range: (max(|A|, |B|) / 2) - 1
       range = (seq2.size // 2) - 1
       range = 0 if range < 0
 
-      seq1_flags = BitArray.new(seq1_length, false)
+      seq1_flags = BitArray.new(seq1.size, false)
       seq2_flags = BitArray.new(seq2.size, false)
 
       matches = 0
@@ -60,12 +59,12 @@ module Edits
       # Pass 1:
       # - determine number of matches
       # - initialize transposition flags
-      seq1_length.times do |i|
+      seq1.each_with_index do |seq1_item, i|
         lower_bound = (i >= range) ? i - range : 0
         upper_bound = (i + range) <= max_bound ? (i + range) : max_bound
 
         lower_bound.upto(upper_bound) do |j|
-          next if seq2_flags[j] || seq2[j] != seq1[i]
+          next if seq2_flags[j] || seq2[j] != seq1_item
 
           seq2_flags[j] = true
           seq1_flags[i] = true
@@ -80,7 +79,7 @@ module Edits
       j = 0
 
       # Pass 2: determine number of half-transpositions
-      seq1_length.times do |i|
+      seq1.each_with_index do |seq1_item, i|
         # find a match in first string
         next unless seq1_flags[i]
 
@@ -90,7 +89,7 @@ module Edits
         end
 
         # transposition if not the current match
-        transposes += 1 if seq1[i] != seq2[j]
+        transposes += 1 if seq1_item != seq2[j]
         j += 1
       end
 

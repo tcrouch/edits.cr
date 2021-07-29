@@ -72,12 +72,12 @@ describe Edits::Jaro do
       {"🍏🍎🍊🍎🍉🍊", "🍊🍉🍎🍋"}           => {2, 1},
     }.each do |(a, b), result|
       it "returns #{result.first} matches for #{a} vs. #{b}" do
-        matches = Edits::Jaro.jaro_matches(a, b).first
+        matches = Edits::Jaro.jaro_matches(a.codepoints, b.codepoints).first
         matches.should eq result.first
       end
 
       it "returns #{result.last} transposes for #{a} vs. #{b}" do
-        transposes = Edits::Jaro.jaro_matches(a, b).last
+        transposes = Edits::Jaro.jaro_matches(a.codepoints, b.codepoints).last
         transposes.should eq result.last
       end
     end
