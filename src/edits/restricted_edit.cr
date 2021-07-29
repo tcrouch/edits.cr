@@ -28,19 +28,20 @@ module Edits
       return cols if rows.zero?
       return rows if cols.zero?
 
+      # If the strings contain only single-byte characters, compare the
+      # raw values without decoding.
+      # Otherwise, decode the chars. The first string is only iterated over
+      # once, so avoid storing its chars.
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
-        _distance(str1.to_slice, str2.to_slice)
+        _distance(str1.to_slice, rows, str2.to_slice, cols)
       else
-        _distance(str1.codepoints, str2.codepoints)
+        _distance(Char::Reader.new(str1), rows, str2.chars, cols)
       end
     end
 
-    private def self._distance(seq1, seq2) : Int
-      rows = seq1.size
-      cols = seq2.size
-
-      # 'infinite' edit distance for padding cost matrix.
-      # Can be any value > max[rows, cols]
+    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int
+      # "Infinite" edit distance for padding cost matrix.
+      # Any value > max[rows, cols]
       inf = rows + 1
 
       # retain previous two rows of cost matrix
@@ -53,20 +54,19 @@ module Edits
       #    [1, 0, 0, 0],
       #    [2, 0, 0, 0]]
       curr_row = Slice.new(cols + 1) { |i| i }
+      last_item = Nil
 
-      rows.times do |row|
-        # rotate matrix rows
+      seq1.each_with_index do |seq1_item, row|
+        # rotate matrix rows and initialize current row
         curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
-
         curr_row[0] = row + 1
-        seq1_item = seq1[row]
 
-        cols.times do |col|
-          sub_cost = seq1_item == seq2[col] ? 0 : 1
-          is_swap = sub_cost == 1 &&
+        seq2.each_with_index do |seq2_item, col|
+          sub_cost = seq1_item == seq2_item ? 0 : 1
+          is_swap = sub_cost > 0 &&
                     row > 0 && col > 0 &&
-                    seq1_item == seq2[col - 1] &&
-                    seq1[row - 1] == seq2[col]
+                    last_item == seq2_item &&
+                    seq1_item == seq2[col - 1]
 
           # | Xt |    |    |
           # |    | Xs | Xd |
@@ -87,6 +87,7 @@ module Edits
 
           curr_row[col + 1] = cost
         end
+        last_item = seq1_item
       end
 
       curr_row[cols]
@@ -109,18 +110,15 @@ module Edits
       return max if rows - cols >= max
 
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
-        _distance(str1.to_slice, str2.to_slice, max)
+        _distance(str1.to_slice, rows, str2.to_slice, cols, max)
       else
-        _distance(str1.codepoints, str2.codepoints, max)
+        _distance(Char::Reader.new(str1), rows, str2.chars, cols, max)
       end
     end
 
-    private def self._distance(seq1, seq2, max : Int) : Int
-      rows = seq1.size
-      cols = seq2.size
-
-      # 'infinite' edit distance for padding cost matrix.
-      # Can be any value > max[rows, cols]
+    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
+      # "Infinite" edit distance for padding cost matrix.
+      # Any value > max[rows, cols]
       inf = rows + 1
 
       # retain previous two rows of cost matrix,
@@ -128,8 +126,9 @@ module Edits
       lastlast_row = Slice.new(cols + 1, inf)
       last_row = Slice.new(cols + 1, inf)
       curr_row = Slice.new(cols + 1) { |i| i }
+      last_item = Nil
 
-      rows.times do |row|
+      seq1.each_with_index do |seq1_item, row|
         # rotate matrix rows
         curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
 
@@ -137,19 +136,20 @@ module Edits
         min_col = row > max ? row - max : 0
         max_col = row + max
         max_col = cols - 1 if max_col > cols - 1
-
-        curr_row[min_col] = min_col.zero? ? row + 1 : inf
-        seq1_item = seq1[row]
         diagonal = cols - rows + row
+
+        # Initialize current row
+        curr_row[min_col] = min_col.zero? ? row + 1 : inf
 
         min_col.upto(max_col) do |col|
           return max if diagonal == col && last_row[col] >= max
 
-          sub_cost = seq1_item == seq2[col] ? 0 : 1
-          is_swap = sub_cost == 1 &&
+          seq2_item = seq2[col]
+          sub_cost = seq1_item == seq2_item ? 0 : 1
+          is_swap = sub_cost > 0 &&
                     row > 0 && col > 0 &&
-                    seq1_item == seq2[col - 1] &&
-                    seq1[row - 1] == seq2[col]
+                    last_item == seq2_item &&
+                    seq1_item == seq2[col - 1]
 
           # | Xt |    |    |
           # |    | Xs | Xd |
@@ -170,6 +170,7 @@ module Edits
 
           curr_row[col + 1] = cost
         end
+        last_item = seq1_item
       end
 
       curr_row[cols] > max ? max : curr_row[cols]

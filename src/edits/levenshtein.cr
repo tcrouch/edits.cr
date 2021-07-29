@@ -23,17 +23,18 @@ module Edits
       return cols if rows.zero?
       return rows if cols.zero?
 
+      # If the strings contain only single-byte characters, compare the
+      # raw values without decoding.
+      # Otherwise, decode the chars. The first string is only iterated over
+      # once, so avoid storing its chars.
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
-        _distance(str1.to_slice, str2.to_slice)
+        _distance(str1.to_slice, rows, str2.to_slice, cols)
       else
-        _distance(str1.codepoints, str2.codepoints)
+        _distance(Char::Reader.new(str1), rows, str2.chars, cols)
       end
     end
 
-    private def self._distance(seq1, seq2) : Int
-      rows = seq1.size
-      cols = seq2.size
-
+    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int
       # Initialize first row of cost matrix.
       # Full initial state where cols=2, rows=3 would be:
       #   [[0, 1, 2],
@@ -42,25 +43,23 @@ module Edits
       #    [3, 0, 0]]
       last_row = Slice(Int32).new(cols + 1) { |i| i }
 
-      rows.times do |row|
-        last_col = row + 1
+      seq1.each_with_index do |seq1_item, row|
+        previous_cost = row + 1
 
-        seq1_item = seq1[row]
-
-        cols.times do |col|
+        seq2.each_with_index do |seq2_item, col|
+          substitution = last_row[col] + (seq1_item == seq2_item ? 0 : 1)
           deletion = last_row[col + 1] + 1
-          insertion = last_col + 1
-          substitution = last_row[col] + (seq1_item == seq2[col] ? 0 : 1)
+          insertion = previous_cost + 1
 
           # step cost is min of possible operation costs
           cost = Math.min(deletion, insertion)
           cost = Math.min(cost, substitution)
 
           # overwrite previous row as we progress
-          last_row[col] = last_col
-          last_col = cost
+          last_row[col] = previous_cost
+          previous_cost = cost
         end
-        last_row[cols] = last_col
+        last_row[cols] = previous_cost
       end
 
       last_row[cols]
@@ -83,32 +82,26 @@ module Edits
       return max if rows - cols >= max
 
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
-        _distance(str1.to_slice, str2.to_slice, max)
+        _distance(str1.to_slice, rows, str2.to_slice, cols, max)
       else
-        _distance(str1.codepoints, str2.codepoints, max)
+        _distance(Char::Reader.new(str1), rows, str2.chars, cols, max)
       end
     end
 
-    private def self._distance(seq1, seq2, max : Int) : Int
-      rows = seq1.size
-      cols = seq2.size
-
-      # 'infinite' edit distance for padding cost matrix.
-      # Can be any value > max[rows, cols]
+    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
       inf = rows + 1
 
       # retain previous row of cost matrix
       last_row = Slice(Int32).new(cols + 1) { |i| i }
 
-      rows.times do |row|
+      seq1.each_with_index do |seq1_item, row|
         # Ukkonen cut-off
         min_col = row > max ? row - max : 0
         max_col = row + max
         max_col = cols - 1 if max_col > cols - 1
-
-        prev_col_cost = min_col.zero? ? row + 1 : inf
-        seq1_item = seq1[row]
         diagonal = cols - rows + row
+
+        previous_cost = min_col.zero? ? row + 1 : inf
 
         min_col.upto(max_col) do |col|
           return max if diagonal == col && last_row[col] >= max
@@ -118,17 +111,17 @@ module Edits
           # substitution, deletion, insertion
           substitution = last_row[col] + (seq1_item == seq2[col] ? 0 : 1)
           deletion = last_row[col + 1] + 1
-          insertion = prev_col_cost + 1
+          insertion = previous_cost + 1
 
           cost = Math.min(deletion, insertion)
           cost = Math.min(cost, substitution)
 
           # overwrite previous row as we progress
-          last_row[col] = prev_col_cost
-          prev_col_cost = cost
+          last_row[col] = previous_cost
+          previous_cost = cost
         end
 
-        last_row[cols] = prev_col_cost
+        last_row[cols] = previous_cost
       end
 
       last_row[cols] > max ? max : last_row[cols]
