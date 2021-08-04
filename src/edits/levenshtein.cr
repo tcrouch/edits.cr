@@ -18,6 +18,8 @@ module Edits
     def self.distance(str1, str2) : Int
       rows = str1.size
       cols = str2.size
+
+      # Minimise size of matrix row we store
       str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
       return cols if rows.zero?
@@ -47,15 +49,18 @@ module Edits
         previous_cost = row + 1
 
         seq2.each_with_index do |seq2_item, col|
+          # | Xs | Xd |
+          # | Xi | ?  |
+          # substitution, deletion, insertion
           substitution = last_row[col] + (seq1_item == seq2_item ? 0 : 1)
           deletion = last_row[col + 1] + 1
           insertion = previous_cost + 1
 
-          # step cost is min of possible operation costs
+          # Step cost is min of possible operation costs
           cost = Math.min(deletion, insertion)
           cost = Math.min(cost, substitution)
 
-          # overwrite previous row as we progress
+          # Overwrite previous row as we progress
           last_row[col] = previous_cost
           previous_cost = cost
         end
@@ -75,6 +80,8 @@ module Edits
     def self.distance(str1, str2, max : Int) : Int
       rows = str1.size
       cols = str2.size
+
+      # Minimise size of matrix row we store
       str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
       return cols > max ? max : cols if rows.zero?
@@ -89,9 +96,11 @@ module Edits
     end
 
     private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
+      # "Infinite" edit distance to pad cost matrix.
+      # Any value > max[rows, cols]
       inf = rows + 1
 
-      # retain previous row of cost matrix
+      # Retain previous row of cost matrix
       last_row = Slice(Int32).new(cols + 1) { |i| i }
 
       seq1.each_with_index do |seq1_item, row|
@@ -113,10 +122,11 @@ module Edits
           deletion = last_row[col + 1] + 1
           insertion = previous_cost + 1
 
+          # Step cost is min of possible operation costs
           cost = Math.min(deletion, insertion)
           cost = Math.min(cost, substitution)
 
-          # overwrite previous row as we progress
+          # Overwrite previous row as we progress
           last_row[col] = previous_cost
           previous_cost = cost
         end

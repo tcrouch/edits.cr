@@ -23,6 +23,8 @@ module Edits
     def self.distance(str1, str2) : Int
       rows = str1.size
       cols = str2.size
+
+      # Minimise size of matrix rows we store
       str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
       return cols if rows.zero?
@@ -40,11 +42,11 @@ module Edits
     end
 
     private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int
-      # "Infinite" edit distance for padding cost matrix.
+      # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
 
-      # retain previous two rows of cost matrix
+      # Retain previous two rows of cost matrix
       lastlast_row = Slice(Int32).new(cols + 1, inf)
       last_row = Slice(Int32).new(cols + 1, inf)
 
@@ -117,14 +119,16 @@ module Edits
     end
 
     private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
-      # "Infinite" edit distance for padding cost matrix.
+      # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
 
-      # retain previous two rows of cost matrix,
+      # Retain previous two rows of cost matrix,
       # padded with "inf" as matrix is not fully evaluated
       lastlast_row = Slice.new(cols + 1, inf)
       last_row = Slice.new(cols + 1, inf)
+
+      # Initialize first row of cost matrix
       curr_row = Slice.new(cols + 1) { |i| i }
       last_item = Nil
 
@@ -159,7 +163,7 @@ module Edits
           deletion = last_row[col + 1] + 1
           insertion = curr_row[col] + 1
 
-          # step cost is min of possible operation costs
+          # Step cost is min of possible operation costs
           cost = Math.min(insertion, deletion)
           cost = Math.min(cost, substitution)
 
