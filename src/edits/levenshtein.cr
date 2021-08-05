@@ -19,11 +19,14 @@ module Edits
       rows = str1.size
       cols = str2.size
 
-      # Minimise size of matrix row we store
-      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
-
       return cols if rows.zero?
       return rows if cols.zero?
+
+      # Minimise size of matrix row we store
+      if rows < cols
+        str1, str2 = str2, str1
+        rows, cols = cols, rows
+      end
 
       # If the strings contain only single-byte characters, compare the
       # raw values without decoding.
@@ -53,16 +56,15 @@ module Edits
           # | Xi | ?  |
           # substitution, deletion, insertion
           substitution = last_row[col] + (seq1_item == seq2_item ? 0 : 1)
-          deletion = last_row[col + 1] + 1
           insertion = previous_cost + 1
-
-          # Step cost is min of possible operation costs
-          cost = Math.min(deletion, insertion)
-          cost = Math.min(cost, substitution)
+          deletion = last_row[col + 1] + 1
 
           # Overwrite previous row as we progress
           last_row[col] = previous_cost
-          previous_cost = cost
+
+          # Record the current cost.
+          # Step cost is min of operation costs
+          previous_cost = Math.min(Math.min(insertion, deletion), substitution)
         end
         last_row[cols] = previous_cost
       end
@@ -81,11 +83,15 @@ module Edits
       rows = str1.size
       cols = str2.size
 
-      # Minimise size of matrix row we store
-      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
-
       return cols > max ? max : cols if rows.zero?
       return rows > max ? max : rows if cols.zero?
+
+      # Minimise size of matrix row we store
+      if rows < cols
+        str1, str2 = str2, str1
+        rows, cols = cols, rows
+      end
+
       return max if rows - cols >= max
 
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
@@ -115,20 +121,21 @@ module Edits
         min_col.upto(max_col) do |col|
           return max if diagonal == col && last_row[col] >= max
 
+          seq2_item = seq2[col]
+
           # | Xs | Xd |
           # | Xi | ?  |
           # substitution, deletion, insertion
-          substitution = last_row[col] + (seq1_item == seq2[col] ? 0 : 1)
-          deletion = last_row[col + 1] + 1
+          substitution = last_row[col] + (seq1_item == seq2_item ? 0 : 1)
           insertion = previous_cost + 1
-
-          # Step cost is min of possible operation costs
-          cost = Math.min(deletion, insertion)
-          cost = Math.min(cost, substitution)
+          deletion = last_row[col + 1] + 1
 
           # Overwrite previous row as we progress
           last_row[col] = previous_cost
-          previous_cost = cost
+
+          # Record the current cost.
+          # Step cost is min of operation costs
+          previous_cost = Math.min(Math.min(insertion, deletion), substitution)
         end
 
         last_row[cols] = previous_cost

@@ -24,11 +24,14 @@ module Edits
       rows = str1.size
       cols = str2.size
 
-      # Minimise size of matrix rows we store
-      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
-
       return cols if rows.zero?
       return rows if cols.zero?
+
+      # Minimise size of matrix row we store
+      if rows < cols
+        str1, str2 = str2, str1
+        rows, cols = cols, rows
+      end
 
       # If the strings contain only single-byte characters, compare the
       # raw values without decoding.
@@ -66,7 +69,8 @@ module Edits
         seq2.each_with_index do |seq2_item, col|
           sub_cost = seq1_item == seq2_item ? 0 : 1
           is_swap = sub_cost > 0 &&
-                    row > 0 && col > 0 &&
+                    row > 0 &&
+                    col > 0 &&
                     last_item == seq2_item &&
                     seq1_item == seq2[col - 1]
 
@@ -75,12 +79,11 @@ module Edits
           # |    | Xi | ?  |
           # substitution, deletion, insertion, transposition
           substitution = last_row[col] + sub_cost
-          deletion = last_row[col + 1] + 1
           insertion = curr_row[col] + 1
+          deletion = last_row[col + 1] + 1
 
           # step cost is min of possible operation costs
-          cost = Math.min(insertion, deletion)
-          cost = Math.min(cost, substitution)
+          cost = Math.min(Math.min(insertion, deletion), substitution)
 
           if is_swap
             swap = lastlast_row[col - 1] + 1
@@ -105,10 +108,16 @@ module Edits
     def self.distance(str1, str2, max : Int) : Int
       rows = str1.size
       cols = str2.size
-      str1, str2, rows, cols = str2, str1, cols, rows if rows < cols
 
       return cols > max ? max : cols if rows.zero?
       return rows > max ? max : rows if cols.zero?
+
+      # Minimise size of matrix row we store
+      if rows < cols
+        str1, str2 = str2, str1
+        rows, cols = cols, rows
+      end
+
       return max if rows - cols >= max
 
       if str1.single_byte_optimizable? && str2.single_byte_optimizable?
@@ -151,7 +160,8 @@ module Edits
           seq2_item = seq2[col]
           sub_cost = seq1_item == seq2_item ? 0 : 1
           is_swap = sub_cost > 0 &&
-                    row > 0 && col > 0 &&
+                    row > 0 &&
+                    col > 0 &&
                     last_item == seq2_item &&
                     seq1_item == seq2[col - 1]
 
@@ -160,12 +170,11 @@ module Edits
           # |    | Xi | ?  |
           # substitution, deletion, insertion, transposition
           substitution = last_row[col] + sub_cost
-          deletion = last_row[col + 1] + 1
           insertion = curr_row[col] + 1
+          deletion = last_row[col + 1] + 1
 
           # Step cost is min of possible operation costs
-          cost = Math.min(insertion, deletion)
-          cost = Math.min(cost, substitution)
+          cost = Math.min(Math.min(insertion, deletion), substitution)
 
           if is_swap
             swap = lastlast_row[col - 1] + 1
