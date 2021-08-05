@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.36.1">
-<meta name="crystal_docs.project_version" content="0.7.0">
+<meta name="generator" content="Crystal Docs 1.0.0">
+<meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::RestrictedEdit - edits 0.7.0</title>
+  <title>Edits::RestrictedEdit - edits master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        0.7.0
+        master
       </span>
     </div>
   </div>
@@ -168,7 +168,9 @@ more than once.</p>
   </h2>
   
     
-      edits/restricted_edit.cr
+      <a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/restricted_edit.cr#L12" target="_blank">
+        edits/restricted_edit.cr
+      </a>
     
     <br/>
   
@@ -190,14 +192,14 @@ more than once.</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2,max:Int)-class-method" class="signature"><strong>.distance</strong>(str1, str2, max : Int)</a>
+        <a href="#distance(str1,str2,max:Int):Int-class-method" class="signature"><strong>.distance</strong>(str1, str2, max : Int) : Int</a>
         
           <div class="summary"><p>Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment) of two sequences, bounded by a maximum value.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2)-class-method" class="signature"><strong>.distance</strong>(str1, str2)</a>
+        <a href="#distance(str1,str2):Int-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
         
           <div class="summary"><p>Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment) of two sequences.</p></div>
         
@@ -227,19 +229,18 @@ more than once.</p>
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="distance(str1,str2,max:Int)-class-method">
+    <div class="entry-detail" id="distance(str1,str2,max:Int):Int-class-method">
       <div class="signature">
         
-        def self.<strong>distance</strong>(str1, str2, max : Int)
+        def self.<strong>distance</strong>(str1, str2, max : Int) : Int
 
-        <a class="method-permalink" href="#distance(str1,str2,max:Int)-class-method">#</a>
+        <a class="method-permalink" href="#distance(str1,str2,max:Int):Int-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate the Restricted Damerau-Levenshtein distance (Optimal Alignment)
-of two sequences, bounded by a maximum value.
-For low max values, this can be highly performant.</p>
+of two sequences, bounded by a maximum value.</p>
 
 <pre><code class="language-crystal"><span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance(<span class="s">&quot;cloud&quot;</span>, <span class="s">&quot;crayon&quot;</span>)    <span class="c"># =&gt; 5</span>
 <span class="t">Edits</span><span class="t">::</span><span class="t">RestrictedEdit</span>.distance(<span class="s">&quot;cloud&quot;</span>, <span class="s">&quot;crayon&quot;</span>, <span class="n">2</span>) <span class="c"># =&gt; 2</span></code></pre>
@@ -248,15 +249,17 @@ For low max values, this can be highly performant.</p>
       <br/>
       <div>
         
+          [<a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/restricted_edit.cr#L108" target="_blank">View source</a>]
+        
       </div>
     </div>
   
-    <div class="entry-detail" id="distance(str1,str2)-class-method">
+    <div class="entry-detail" id="distance(str1,str2):Int-class-method">
       <div class="signature">
         
-        def self.<strong>distance</strong>(str1, str2)
+        def self.<strong>distance</strong>(str1, str2) : Int
 
-        <a class="method-permalink" href="#distance(str1,str2)-class-method">#</a>
+        <a class="method-permalink" href="#distance(str1,str2):Int-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -271,6 +274,8 @@ of two sequences.</p>
       
       <br/>
       <div>
+        
+          [<a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/restricted_edit.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>

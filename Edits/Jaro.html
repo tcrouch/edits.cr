@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.36.1">
-<meta name="crystal_docs.project_version" content="0.7.0">
+<meta name="generator" content="Crystal Docs 1.0.0">
+<meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::Jaro - edits 0.7.0</title>
+  <title>Edits::Jaro - edits master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        0.7.0
+        master
       </span>
     </div>
   </div>
@@ -149,7 +149,9 @@
   </h2>
   
     
-      edits/jaro.cr
+      <a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/jaro.cr#L7" target="_blank">
+        edits/jaro.cr
+      </a>
     
     <br/>
   
@@ -171,14 +173,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2)-class-method" class="signature"><strong>.distance</strong>(str1, str2)</a>
+        <a href="#distance(str1,str2):Float-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Float</a>
         
           <div class="summary"><p>Calculate Jaro distance, where 0 is an exact match and 1 is no similarity.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#similarity(str1,str2)-class-method" class="signature"><strong>.similarity</strong>(str1, str2)</a>
+        <a href="#similarity(str1,str2):Float-class-method" class="signature"><strong>.similarity</strong>(str1, str2) : Float</a>
         
           <div class="summary"><p>Calculate Jaro similarity of two sequences, where 1 is an exact match and 0 is no similarity.</p></div>
         
@@ -208,12 +210,12 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="distance(str1,str2)-class-method">
+    <div class="entry-detail" id="distance(str1,str2):Float-class-method">
       <div class="signature">
         
-        def self.<strong>distance</strong>(str1, str2)
+        def self.<strong>distance</strong>(str1, str2) : Float
 
-        <a class="method-permalink" href="#distance(str1,str2)-class-method">#</a>
+        <a class="method-permalink" href="#distance(str1,str2):Float-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -230,15 +232,17 @@ and 1 is no similarity.</p>
       <br/>
       <div>
         
+          [<a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/jaro.cr#L41" target="_blank">View source</a>]
+        
       </div>
     </div>
   
-    <div class="entry-detail" id="similarity(str1,str2)-class-method">
+    <div class="entry-detail" id="similarity(str1,str2):Float-class-method">
       <div class="signature">
         
-        def self.<strong>similarity</strong>(str1, str2)
+        def self.<strong>similarity</strong>(str1, str2) : Float
 
-        <a class="method-permalink" href="#similarity(str1,str2)-class-method">#</a>
+        <a class="method-permalink" href="#similarity(str1,str2):Float-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -255,6 +259,8 @@ Where <code>m</code> is #matches and <code>t</code> is #transposes</p>
       
       <br/>
       <div>
+        
+          [<a href="https://github.com/tcrouch/edits.cr/blob/972692efbcd042473fa9cd72acf1ec119a97ce49/src/edits/jaro.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
