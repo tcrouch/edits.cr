@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.0.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 1.5.0">
+<meta name="crystal_docs.project_version" content="0.8.0">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::JaroWinkler - edits master</title>
+  <title>Edits::JaroWinkler - edits 0.8.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        0.8.0
       </span>
     </div>
   </div>
@@ -123,13 +123,12 @@
   </h2>
 
   <p>Jaro-Winkler similarity measure.</p>
-
 <p>When Jaro similarity exceeds a threshold, the Winkler extension adds
 additional weighting if a common prefix exists.</p>
-
 <p>See also:</p>
-
-<ul><li><a href="https://en.wikipedia.org/wiki/Jaro-Winkler_distance">Wikipedia</a></li></ul>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Jaro-Winkler_distance">Wikipedia</a></li>
+</ul>
 
 
 
@@ -154,9 +153,7 @@ additional weighting if a common prefix exists.</p>
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro_winkler.cr#L9" target="_blank">
-        edits/jaro_winkler.cr
-      </a>
+      edits/jaro_winkler.cr
     
     <br/>
   
@@ -212,14 +209,14 @@ Default is 0.7</p>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2,threshold=WINKLER_THRESHOLD,weight=WINKLER_PREFIX_WEIGHT):Float-class-method" class="signature"><strong>.distance</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float</a>
+        <a href="#distance%28str1%2Cstr2%2Cthreshold%3DWINKLER_THRESHOLD%2Cweight%3DWINKLER_PREFIX_WEIGHT%29%3AFloat-class-method" class="signature"><strong>.distance</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float</a>
         
           <div class="summary"><p>Calculate Jaro-Winkler distance, where 0 is an exact match and 1 is no similarity.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#similarity(str1,str2,threshold=WINKLER_THRESHOLD,weight=WINKLER_PREFIX_WEIGHT):Float-class-method" class="signature"><strong>.similarity</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float</a>
+        <a href="#similarity%28str1%2Cstr2%2Cthreshold%3DWINKLER_THRESHOLD%2Cweight%3DWINKLER_PREFIX_WEIGHT%29%3AFloat-class-method" class="signature"><strong>.similarity</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float</a>
         
           <div class="summary"><p>Calculate Jaro-Winkler similarity, where 1 is an exact match and 0 is no similarity.</p></div>
         
@@ -254,24 +251,20 @@ Default is 0.7</p>
         
         def self.<strong>distance</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float
 
-        <a class="method-permalink" href="#distance(str1,str2,threshold=WINKLER_THRESHOLD,weight=WINKLER_PREFIX_WEIGHT):Float-class-method">#</a>
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%2Cthreshold%3DWINKLER_THRESHOLD%2Cweight%3DWINKLER_PREFIX_WEIGHT%29%3AFloat-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate Jaro-Winkler distance, where 0 is an exact match and 1
 is no similarity.</p>
-
 <p><code>Dw = 1 - similarity</code></p>
-
 <pre><code class="language-crystal"><span class="t">JaroWinkler</span>.distance <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
 <span class="c"># =&gt; 0.05858585858585863</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro_winkler.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -281,28 +274,22 @@ is no similarity.</p>
         
         def self.<strong>similarity</strong>(str1, str2, threshold = <span class="t">WINKLER_THRESHOLD</span>, weight = <span class="t">WINKLER_PREFIX_WEIGHT</span>) : Float
 
-        <a class="method-permalink" href="#similarity(str1,str2,threshold=WINKLER_THRESHOLD,weight=WINKLER_PREFIX_WEIGHT):Float-class-method">#</a>
+        <a class="method-permalink" href="#similarity%28str1%2Cstr2%2Cthreshold%3DWINKLER_THRESHOLD%2Cweight%3DWINKLER_PREFIX_WEIGHT%29%3AFloat-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate Jaro-Winkler similarity, where 1 is an exact match and 0 is
 no similarity.</p>
-
 <p><code>Sw = Sj + (l * p * (1 - Sj))</code></p>
-
 <p>Where <code>Sj</code> is Jaro, <code>l</code> is prefix length, and <code>p</code> is prefix weight</p>
-
 <pre><code class="language-crystal"><span class="t">JaroWinkler</span>.similarity(<span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>)
 <span class="c"># =&gt; 0.9414141414141414</span></code></pre>
-
 <p><span class="flag purple">NOTE</span>  not a true distance metric, fails to satisfy triangle inequality.</p>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro_winkler.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>

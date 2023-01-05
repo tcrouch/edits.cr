@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.0.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 1.5.0">
+<meta name="crystal_docs.project_version" content="0.8.0">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::DamerauLevenshtein - edits master</title>
+  <title>Edits::DamerauLevenshtein - edits 0.8.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        0.8.0
       </span>
     </div>
   </div>
@@ -123,10 +123,13 @@
   </h2>
 
   <p>Damerau-Levenshtein edit distance.</p>
-
 <p>Determines distance between two strings by counting edits, identifying:</p>
-
-<ul><li>Insertion</li><li>Deletion</li><li>Substitution</li><li>Adjacent transposition</li></ul>
+<ul>
+<li>Insertion</li>
+<li>Deletion</li>
+<li>Substitution</li>
+<li>Adjacent transposition</li>
+</ul>
 
 
 
@@ -151,9 +154,7 @@
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/damerau_levenshtein.cr#L9" target="_blank">
-        edits/damerau_levenshtein.cr
-      </a>
+      edits/damerau_levenshtein.cr
     
     <br/>
   
@@ -175,7 +176,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2):Int-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
+        <a href="#distance%28str1%2Cstr2%29%3AInt-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
         
           <div class="summary"><p>Calculate the Damerau-Levenshtein distance of two sequences.</p></div>
         
@@ -210,20 +211,17 @@
         
         def self.<strong>distance</strong>(str1, str2) : Int
 
-        <a class="method-permalink" href="#distance(str1,str2):Int-class-method">#</a>
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%29%3AInt-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate the Damerau-Levenshtein distance of two sequences.</p>
-
 <pre><code class="language-crystal"><span class="t">DamerauLevenshtein</span>.distance(<span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>) <span class="c"># =&gt; 3</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/damerau_levenshtein.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>

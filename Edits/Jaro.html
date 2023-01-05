@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.0.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 1.5.0">
+<meta name="crystal_docs.project_version" content="0.8.0">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::Jaro - edits master</title>
+  <title>Edits::Jaro - edits 0.8.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        0.8.0
       </span>
     </div>
   </div>
@@ -123,7 +123,6 @@
   </h2>
 
   <p>Jaro similarity measure.</p>
-
 <p><a href="https://en.wikipedia.org/wiki/Jaro-Winkler_distance">See wiki</a></p>
 
 
@@ -149,9 +148,7 @@
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro.cr#L7" target="_blank">
-        edits/jaro.cr
-      </a>
+      edits/jaro.cr
     
     <br/>
   
@@ -173,14 +170,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2):Float-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Float</a>
+        <a href="#distance%28str1%2Cstr2%29%3AFloat-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Float</a>
         
           <div class="summary"><p>Calculate Jaro distance, where 0 is an exact match and 1 is no similarity.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#similarity(str1,str2):Float-class-method" class="signature"><strong>.similarity</strong>(str1, str2) : Float</a>
+        <a href="#similarity%28str1%2Cstr2%29%3AFloat-class-method" class="signature"><strong>.similarity</strong>(str1, str2) : Float</a>
         
           <div class="summary"><p>Calculate Jaro similarity of two sequences, where 1 is an exact match and 0 is no similarity.</p></div>
         
@@ -215,24 +212,20 @@
         
         def self.<strong>distance</strong>(str1, str2) : Float
 
-        <a class="method-permalink" href="#distance(str1,str2):Float-class-method">#</a>
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%29%3AFloat-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate Jaro distance, where 0 is an exact match
 and 1 is no similarity.</p>
-
 <p><code>Dj = 1 - similarity</code></p>
-
 <pre><code class="language-crystal"><span class="t">Jaro</span>.distance <span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>
 <span class="c"># =&gt; 0.097643097643097643</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -242,25 +235,21 @@ and 1 is no similarity.</p>
         
         def self.<strong>similarity</strong>(str1, str2) : Float
 
-        <a class="method-permalink" href="#similarity(str1,str2):Float-class-method">#</a>
+        <a class="method-permalink" href="#similarity%28str1%2Cstr2%29%3AFloat-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate Jaro similarity of two sequences, where 1 is an exact match
 and 0 is no similarity.</p>
-
 <p><code>Sj = 1/3 * ((m / |A|) + (m / |B|) + ((m - t) / m))</code>
 Where <code>m</code> is #matches and <code>t</code> is #transposes</p>
-
 <pre><code class="language-crystal"><span class="t">Jaro</span>.distance(<span class="s">&quot;information&quot;</span>, <span class="s">&quot;informant&quot;</span>)
 <span class="c"># =&gt; 0.9023569023569024</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/jaro.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>

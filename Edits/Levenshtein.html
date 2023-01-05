@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.0.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 1.5.0">
+<meta name="crystal_docs.project_version" content="0.8.0">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::Levenshtein - edits master</title>
+  <title>Edits::Levenshtein - edits 0.8.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        0.8.0
       </span>
     </div>
   </div>
@@ -123,10 +123,12 @@
   </h2>
 
   <p>Levenshtein edit distance.</p>
-
 <p>Determines distance between two string by counting edits, identifying:</p>
-
-<ul><li>Insertion</li><li>Deletion</li><li>Substitution</li></ul>
+<ul>
+<li>Insertion</li>
+<li>Deletion</li>
+<li>Substitution</li>
+</ul>
 
 
 
@@ -165,9 +167,7 @@
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/levenshtein.cr#L8" target="_blank">
-        edits/levenshtein.cr
-      </a>
+      edits/levenshtein.cr
     
     <br/>
   
@@ -189,14 +189,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2,max:Int):Int-class-method" class="signature"><strong>.distance</strong>(str1, str2, max : Int) : Int</a>
+        <a href="#distance%28str1%2Cstr2%2Cmax%3AInt%29%3AInt-class-method" class="signature"><strong>.distance</strong>(str1, str2, max : Int) : Int</a>
         
           <div class="summary"><p>Calculate the Levenshtein (edit) distance of two sequences, bounded by a maximum value.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#distance(str1,str2):Int-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
+        <a href="#distance%28str1%2Cstr2%29%3AInt-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
         
           <div class="summary"><p>Calculate the Levenshtein (edit) distance of two sequences.</p></div>
         
@@ -231,22 +231,19 @@
         
         def self.<strong>distance</strong>(str1, str2, max : Int) : Int
 
-        <a class="method-permalink" href="#distance(str1,str2,max:Int):Int-class-method">#</a>
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%2Cmax%3AInt%29%3AInt-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate the Levenshtein (edit) distance of two sequences, bounded
 by a maximum value.</p>
-
 <pre><code class="language-crystal"><span class="t">Levenshtein</span>.distance(<span class="s">&quot;cloud&quot;</span>, <span class="s">&quot;crayon&quot;</span>)    <span class="c"># =&gt; 5</span>
 <span class="t">Levenshtein</span>.distance(<span class="s">&quot;cloud&quot;</span>, <span class="s">&quot;crayon&quot;</span>, <span class="n">2</span>) <span class="c"># =&gt; 2</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/levenshtein.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -256,22 +253,18 @@ by a maximum value.</p>
         
         def self.<strong>distance</strong>(str1, str2) : Int
 
-        <a class="method-permalink" href="#distance(str1,str2):Int-class-method">#</a>
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%29%3AInt-class-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Calculate the Levenshtein (edit) distance of two sequences.</p>
-
 <p><span class="flag purple">NOTE</span>  a true distance metric, satisfies triangle inequality.</p>
-
 <pre><code class="language-crystal"><span class="t">Levenshtein</span>.distance(<span class="s">&quot;sand&quot;</span>, <span class="s">&quot;hands&quot;</span>) <span class="c"># =&gt; 2</span></code></pre>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/levenshtein.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.0.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 1.5.0">
+<meta name="crystal_docs.project_version" content="0.8.0">
 <meta name="crystal_docs.project_name" content="edits">
 
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="edits">
-  <title>Edits::Compare - edits master</title>
+  <title>Edits::Compare - edits 0.8.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        0.8.0
       </span>
     </div>
   </div>
@@ -136,9 +136,7 @@
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/compare.cr#L2" target="_blank">
-        edits/compare.cr
-      </a>
+      edits/compare.cr
     
     <br/>
   
@@ -162,7 +160,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#most_similar(prototype,strings:Enumerable)-instance-method" class="signature"><strong>#most_similar</strong>(prototype, strings : Enumerable)</a>
+        <a href="#most_similar%28prototype%2Cstrings%3AEnumerable%29-instance-method" class="signature"><strong>#most_similar</strong>(prototype, strings : Enumerable)</a>
         
           <div class="summary"><p>Given a prototype string and an array of strings, determines which string is most similar to the prototype.</p></div>
         
@@ -197,23 +195,20 @@
         
         def <strong>most_similar</strong>(prototype, strings : Enumerable)
 
-        <a class="method-permalink" href="#most_similar(prototype,strings:Enumerable)-instance-method">#</a>
+        <a class="method-permalink" href="#most_similar%28prototype%2Cstrings%3AEnumerable%29-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Given a prototype string and an array of strings, determines which
 string is most similar to the prototype.</p>
-
-<p><code>Klass.most_similar("foo", strings)</code> is functionally equivalent to
-<code>strings.min_by { |s| Klass.distance("foo", s) }</code>, leveraging a
+<p><code>Klass.most_similar(&quot;foo&quot;, strings)</code> is functionally equivalent to
+<code>strings.min_by { |s| Klass.distance(&quot;foo&quot;, s) }</code>, leveraging a
 max distance.</p>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/tcrouch/edits.cr/blob/a3627281a42e58bd7e5892dd6f39dc544fafca06/src/edits/compare.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
