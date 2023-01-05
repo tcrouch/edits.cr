@@ -1,6 +1,6 @@
 # edits
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/tcrouch/edits.cr/CI/master)
+[![CI](https://github.com/tcrouch/edits.cr/actions/workflows/ci.yml/badge.svg)](https://github.com/tcrouch/edits.cr/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/api-docs-informational)](https://tcrouch.github.io/edits.cr)
 
 A collection of edit distance algorithms in Crystal.
