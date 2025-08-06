@@ -17,7 +17,7 @@ module Edits
       min_s = strings[0]
       min_d = distance(prototype, min_s)
 
-      strings[1..-1].each do |s|
+      strings[1..].each do |s|
         d = distance(prototype, s, min_d)
         if d < min_d
           min_d = d
