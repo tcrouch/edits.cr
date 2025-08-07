@@ -57,12 +57,16 @@ module Edits
           cost = Math.min(cost, curr_row[col] + 1)
 
           # transposition cost
-          # skip missed matrix lookup (inf cost)
-          if sub_cost > 0 && row > 0 && (m = matrix[seq2_item]?)
-            transpose = 1 + m[match_col] \
-              + (row - row_history[seq2_item] - 1) \
-                + (col - match_col - 1)
-            cost = Math.min(cost, transpose)
+          if sub_cost > 0 && row > 0
+            prev_row = matrix[seq2_item]?
+
+            # skip missed matrix lookup (inf cost)
+            if prev_row
+              transpose = 1 + prev_row[match_col] \
+                + (row - row_history[seq2_item] - 1) \
+                  + (col - match_col - 1)
+              cost = Math.min(cost, transpose)
+            end
           end
 
           match_col = col if sub_cost == 0
