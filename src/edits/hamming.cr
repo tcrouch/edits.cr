@@ -7,9 +7,11 @@ module Edits
       length = seq1.size
       return nil if length != seq2.size
 
-      length.times.reduce(0) do |distance, i|
-        seq1[i] == seq2[i] ? distance : distance + 1
+      distance = 0
+      length.times do |i|
+        distance += 1 if seq1[i] != seq2[i]
       end
+      distance
     end
 
     # Calculate Hamming distance between the bits comprising two integers
