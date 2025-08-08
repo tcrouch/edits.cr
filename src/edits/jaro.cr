@@ -56,9 +56,7 @@ module Edits
       matches = 0
       max_bound = seq2.size - 1
 
-      # Pass 1:
-      # - determine number of matches
-      # - initialize transposition flags
+      # Pass 1: determine number of matches and initialize transposition flags
       seq1.each_with_index do |seq1_item, i|
         lower_bound = (i >= range) ? i - range : 0
         upper_bound = (i + range) <= max_bound ? (i + range) : max_bound
@@ -75,10 +73,10 @@ module Edits
 
       return {0, 0} if matches == 0
 
+      # Pass 2: determine number of half-transpositions
       transposes = 0
       j = 0
 
-      # Pass 2: determine number of half-transpositions
       seq1.each_with_index do |seq1_item, i|
         # find a match in first string
         next unless seq1_flags[i]

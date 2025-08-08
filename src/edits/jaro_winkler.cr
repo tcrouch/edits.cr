@@ -32,20 +32,20 @@ module Edits
                         weight = WINKLER_PREFIX_WEIGHT) : Float
       sj = Jaro.similarity(str1, str2)
 
-      if sj > threshold
-        # size of common prefix, max 4
-        max_bound = Math.min(str2.size, str1.size)
-        max_bound = 4 if max_bound > 4
+      return sj if sj <= threshold
 
-        l = 0
-        until l >= max_bound || str1[l] != str2[l]
-          l += 1
-        end
+      # size of common prefix, max 4
+      max_bound = Math.min(str2.size, str1.size)
+      max_bound = Math.min(max_bound, 4)
 
-        (l < 1) ? sj : sj + (l * weight * (1 - sj))
-      else
-        sj
+      l = 0
+      while l < max_bound && str1[l] == str2[l]
+        l += 1
       end
+
+      return sj if l == 0
+
+      sj + (l * weight * (1 - sj))
     end
 
     # Calculate Jaro-Winkler distance, where 0 is an exact match and 1
