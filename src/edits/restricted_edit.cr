@@ -59,7 +59,7 @@ module Edits
       #    [1, 0, 0, 0],
       #    [2, 0, 0, 0]]
       curr_row = Slice.new(cols + 1) { |i| i }
-      last_item = Nil
+      last_item = nil
 
       seq1.each_with_index do |seq1_item, row|
         # rotate matrix rows and initialize current row
@@ -139,7 +139,7 @@ module Edits
 
       # Initialize first row of cost matrix
       curr_row = Slice.new(cols + 1) { |i| i }
-      last_item = Nil
+      last_item = nil
 
       seq1.each_with_index do |seq1_item, row|
         # rotate matrix rows
