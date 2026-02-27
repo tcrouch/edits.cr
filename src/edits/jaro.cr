@@ -58,8 +58,8 @@ module Edits
 
       # Pass 1: determine number of matches and initialize transposition flags
       seq1.each_with_index do |seq1_item, i|
-        lower_bound = (i >= range) ? i - range : 0
-        upper_bound = (i + range) <= max_bound ? (i + range) : max_bound
+        lower_bound = (i - range).clamp(0..)
+        upper_bound = (i + range).clamp(..max_bound)
 
         lower_bound.upto(upper_bound) do |j|
           next if seq2_flags[j] || seq2[j] != seq1_item
