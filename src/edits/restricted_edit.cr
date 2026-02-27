@@ -38,13 +38,13 @@ module Edits
       # Otherwise, decode the chars. The first string is only iterated over
       # once, so avoid storing its chars.
       if str1.ascii_only? && str2.ascii_only?
-        _distance(str1.to_slice, rows, str2.to_slice, cols)
+        distance(str1.to_slice, rows, str2.to_slice, cols)
       else
-        _distance(Char::Reader.new(str1), rows, str2.chars, cols)
+        distance(Char::Reader.new(str1), rows, str2.chars, cols)
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int32
+    private def self.distance(seq1, rows : Int, seq2, cols : Int) : Int32
       # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
@@ -121,13 +121,13 @@ module Edits
       return max if rows - cols >= max
 
       if str1.ascii_only? && str2.ascii_only?
-        _distance(str1.to_slice, rows, str2.to_slice, cols, max)
+        distance(str1.to_slice, rows, str2.to_slice, cols, max)
       else
-        _distance(Char::Reader.new(str1), rows, str2.chars, cols, max)
+        distance(Char::Reader.new(str1), rows, str2.chars, cols, max)
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int32
+    private def self.distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int32
       # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
