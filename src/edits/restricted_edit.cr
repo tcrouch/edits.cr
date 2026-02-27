@@ -37,7 +37,7 @@ module Edits
       # raw values without decoding.
       # Otherwise, decode the chars. The first string is only iterated over
       # once, so avoid storing its chars.
-      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+      if str1.ascii_only? && str2.ascii_only?
         _distance(str1.to_slice, rows, str2.to_slice, cols)
       else
         _distance(Char::Reader.new(str1), rows, str2.chars, cols)
@@ -120,7 +120,7 @@ module Edits
 
       return max if rows - cols >= max
 
-      if str1.single_byte_optimizable? && str2.single_byte_optimizable?
+      if str1.ascii_only? && str2.ascii_only?
         _distance(str1.to_slice, rows, str2.to_slice, cols, max)
       else
         _distance(Char::Reader.new(str1), rows, str2.chars, cols, max)
