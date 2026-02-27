@@ -12,7 +12,7 @@ module Edits
     # ```
     # DamerauLevenshtein.distance("acer", "earn") # => 3
     # ```
-    def self.distance(str1, str2) : Int
+    def self.distance(str1, str2) : Int32
       rows = str1.size
       cols = str2.size
       str1, str2, rows, cols = str2, str1, cols, rows if rows > cols
@@ -86,7 +86,7 @@ module Edits
     # DamerauLevenshtein.distance("acer", "earn")    # => 3
     # DamerauLevenshtein.distance("acer", "earn", 2) # => 2
     # ```
-    def self.distance(str1, str2, max : Int) : Int
+    def self.distance(str1, str2, max : Int) : Int32
       rows = str1.size
       cols = str2.size
 

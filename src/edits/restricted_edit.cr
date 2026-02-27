@@ -20,7 +20,7 @@ module Edits
     # ```
     # RestrictedEdit.distance("iota", "atom") # => 3
     # ```
-    def self.distance(str1, str2) : Int
+    def self.distance(str1, str2) : Int32
       rows = str1.size
       cols = str2.size
 
@@ -44,7 +44,7 @@ module Edits
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int
+    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int32
       # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
@@ -105,7 +105,7 @@ module Edits
     # Edits::RestrictedEdit.distance("cloud", "crayon")    # => 5
     # Edits::RestrictedEdit.distance("cloud", "crayon", 2) # => 2
     # ```
-    def self.distance(str1, str2, max : Int) : Int
+    def self.distance(str1, str2, max : Int) : Int32
       rows = str1.size
       cols = str2.size
 
@@ -127,7 +127,7 @@ module Edits
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
+    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int32
       # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1

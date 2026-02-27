@@ -15,7 +15,7 @@ module Edits
     # ```
     # Levenshtein.distance("sand", "hands") # => 2
     # ```
-    def self.distance(str1, str2) : Int
+    def self.distance(str1, str2) : Int32
       rows = str1.size
       cols = str2.size
 
@@ -39,7 +39,7 @@ module Edits
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int
+    private def self._distance(seq1, rows : Int, seq2, cols : Int) : Int32
       # Initialize first row of cost matrix.
       # Full initial state where cols=2, rows=3 would be:
       #   [[0, 1, 2],
@@ -79,7 +79,7 @@ module Edits
     # Levenshtein.distance("cloud", "crayon")    # => 5
     # Levenshtein.distance("cloud", "crayon", 2) # => 2
     # ```
-    def self.distance(str1, str2, max : Int) : Int
+    def self.distance(str1, str2, max : Int) : Int32
       rows = str1.size
       cols = str2.size
 
@@ -101,7 +101,7 @@ module Edits
       end
     end
 
-    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int
+    private def self._distance(seq1, rows : Int, seq2, cols : Int, max : Int) : Int32
       # "Infinite" edit distance to pad cost matrix.
       # Any value > max[rows, cols]
       inf = rows + 1
