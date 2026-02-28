@@ -14,7 +14,11 @@ describe Edits::Levenshtein do
     {"iota", "atom", 4},
     {"minion", "noir", 5},
     {"art", "ran", 3},
+    {"🍏🍎🍐🍊🍇", "🍎🍏🍐🍊🍇", 2},
     {"🍎🍏🍋🍊", "🍎🍏🍊🍋", 2},
+    {"🥭🍉🌽🍎", "🍎🌽🍉🍈", 4},
+    {"🍈🥭🍐🥭🍉🍐", "🍐🍉🥭🍋", 5},
+    {"🍎🍋🌽", "🍋🍎🍐", 3},
 
     # complex transpositions
     {"a cat", "an abct", 4},
@@ -25,7 +29,12 @@ describe Edits::Levenshtein do
     {"tram", "rota", 4},
     {"information", "informant", 4},
     {"roam", "art", 4},
-    {"🍎🍐🍏🍊", "🍏🍎🍊🍋", 4},
+    {"🍋🍎🍏🍊🍇", "🍇🍊🍎🍋", 5},
+    {"🍏🍋🍎🍐🍊🍇", "🍋🍊🍎🍇", 4},
+    {"🍎🍏🍊🍋", "🍊🍎🍋🍐", 4},
+    {"🌽🍋🍎🍈", "🍋🍉🌽🍎", 4},
+    {"🥭🍐🍓🍉🍋🍈🍎🌽🥭🍉🍐", "🥭🍐🍓🍉🍋🍈🍎🍐🌽", 4},
+    {"🍋🍉🍎🍈", "🍎🍋🌽", 4},
   ]
 
   describe ".distance" do
@@ -59,6 +68,26 @@ describe Edits::Levenshtein do
 
       it "returns 4 for abcdfe, \"\"" do
         Edits::Levenshtein.distance("abcdfe", "", 4).should eq 4
+      end
+    end
+
+    context "when max is 0" do
+      it "returns 0 for identical strings" do
+        Edits::Levenshtein.distance("abc", "abc", 0).should eq 0
+      end
+
+      it "returns 0 for different strings" do
+        Edits::Levenshtein.distance("abc", "abd", 0).should eq 0
+      end
+    end
+
+    context "when max is less than actual distance" do
+      it "returns 2 for cloud, crayon" do
+        Edits::Levenshtein.distance("cloud", "crayon", 2).should eq 2
+      end
+
+      it "returns 4 for cloud, crayon" do
+        Edits::Levenshtein.distance("cloud", "crayon", 4).should eq 4
       end
     end
   end

@@ -27,6 +27,11 @@ describe Edits::Jaro do
       {"necessary", "nessecary"}   => 0.926,
       {"🙂🙃😟", "😟🙃🙂"}               => 0.556,
       {"🍏🍎🍊🍎🍉🍊", "🍊🍉🍎🍋"}           => 0.444,
+
+      # Long strings (>64 chars)
+      {"a" * 65, "a" * 65}                       => 1.0,
+      {"a" * 65, "b" * 65}                       => 0.0,
+      {"martha" + "x" * 59, "marhta" + "x" * 59} => 0.995,
     }.each do |(a, b), expected|
       it "returns #{expected} for #{a} vs. #{b}" do
         similarity = Edits::Jaro.similarity(a, b)
@@ -70,6 +75,11 @@ describe Edits::Jaro do
       {"necessary", "nessecary"}   => {9, 2},
       {"🙂🙃😟", "😟🙃🙂"}               => {1, 0},
       {"🍏🍎🍊🍎🍉🍊", "🍊🍉🍎🍋"}           => {2, 1},
+
+      # Long strings (>64 chars)
+      {"a" * 65, "a" * 65}                       => {65, 0},
+      {"a" * 65, "b" * 65}                       => {0, 0},
+      {"martha" + "x" * 59, "marhta" + "x" * 59} => {65, 1},
     }.each do |(a, b), result|
       it "returns #{result.first} matches for #{a} vs. #{b}" do
         matches = Edits::Jaro.jaro_matches(a.codepoints, b.codepoints).first
