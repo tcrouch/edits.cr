@@ -35,7 +35,7 @@ module Edits
 
       # If the strings contain only single-byte characters, compare the
       # raw values without decoding.
-      if str1.ascii_only? && str2.ascii_only?
+      if str1.bytesize == str1.size && str2.bytesize == str2.size
         seq1 = str1.to_slice
         seq2 = str2.to_slice
 
@@ -190,7 +190,7 @@ module Edits
 
       return max if rows - cols >= max
 
-      if str1.ascii_only? && str2.ascii_only?
+      if str1.bytesize == str1.size && str2.bytesize == str2.size
         seq1 = str1.to_slice
         seq2 = str2.to_slice
 

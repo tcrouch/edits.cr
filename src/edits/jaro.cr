@@ -19,7 +19,7 @@ module Edits
       return 1.0 if str1 == str2
       return 0.0 if str1.empty? || str2.empty?
 
-      if str1.ascii_only? && str2.ascii_only?
+      if str1.bytesize == str1.size && str2.bytesize == str2.size
         m, t = matches(str1.to_slice, str2.to_slice)
       else
         m, t = matches(str1.codepoints, str2.codepoints)

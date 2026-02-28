@@ -25,7 +25,7 @@ module Edits
       # If the strings contain only single-byte characters, compare the raw
       # values without decoding and use array-indexed lookups (0-255) in place
       # of hash operations for row_history and matrix.
-      if str1.ascii_only? && str2.ascii_only?
+      if str1.bytesize == str1.size && str2.bytesize == str2.size
         distance(str1.to_slice, rows, str2.to_slice, cols)
       else
         distance(str1.codepoints, rows, str2.codepoints, cols)
@@ -165,7 +165,7 @@ module Edits
 
       return max if rows - cols >= max
 
-      if str1.ascii_only? && str2.ascii_only?
+      if str1.bytesize == str1.size && str2.bytesize == str2.size
         distance(str1.to_slice, rows, str2.to_slice, cols, max)
       else
         distance(str1.codepoints, rows, str2.codepoints, cols, max)
