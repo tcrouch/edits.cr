@@ -50,11 +50,49 @@ module Edits
       range = (seq2.size // 2) - 1
       range = 0 if range < 0
 
+      max_bound = seq2.size - 1
+
+      # Fast path: UInt64 bitmasks avoid heap allocation for short strings
+      if seq2.size <= 64
+        seq1_flags = 0u64
+        seq2_flags = 0u64
+        matches = 0
+
+        seq1.each_with_index do |seq1_item, i|
+          lower_bound = (i - range).clamp(0..)
+          upper_bound = (i + range).clamp(..max_bound)
+
+          lower_bound.upto(upper_bound) do |j|
+            next if (seq2_flags >> j) & 1u64 != 0 || seq2[j] != seq1_item
+
+            seq2_flags |= 1u64 << j
+            seq1_flags |= 1u64 << i
+            matches += 1
+            break
+          end
+        end
+
+        return {0, 0} if matches == 0
+
+        transposes = 0
+        j = 0
+
+        seq1.each_with_index do |seq1_item, i|
+          next unless (seq1_flags >> i) & 1u64 != 0
+
+          # advance j to next set bit using hardware trailing-zero count
+          j += (seq2_flags >> j).trailing_zeros_count
+          transposes += 1 if seq1_item != seq2[j]
+          j += 1
+        end
+
+        return {matches, transposes // 2}
+      end
+
       seq1_flags = BitArray.new(seq1.size, false)
       seq2_flags = BitArray.new(seq2.size, false)
 
       matches = 0
-      max_bound = seq2.size - 1
 
       # Pass 1: determine number of matches and initialize transposition flags
       seq1.each_with_index do |seq1_item, i|
@@ -91,10 +129,7 @@ module Edits
         j += 1
       end
 
-      # half-transpositions -> transpositions
-      transposes //= 2
-
-      {matches, transposes}
+      {matches, transposes // 2}
     end
   end
 end
