@@ -53,7 +53,7 @@ Edits::DamerauLevenshtein.distance "acer", "earn"
 | "iota" vs. "atom"    | 4           | 3                              | 3                   |
 | "acer" vs. "earn"    | 4           | 4                              | 3                   |
 
-Levenshtein and Restricted Edit distances accept an optional maximum bound.
+All three distance functions accept an optional maximum bound.
 
 ```crystal
 Edits::Levenshtein.distance "fghijk", "abcde", 3
