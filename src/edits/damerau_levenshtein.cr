@@ -30,8 +30,10 @@ module Edits
       # element => last row seen
       row_history = Hash(Int32, Int32).new(0)
 
-      # initialize alphabet-keyed cost matrix
-      curr_row = Slice.new(cols + 1) { |i| i }
+      row_size = cols + 1
+      all_data = Slice(Int32).new((rows + 1) * row_size, inf)
+      row_size.times { |i| all_data[i] = i }
+      curr_row = all_data[0, row_size]
       matrix = Hash(Int32, typeof(curr_row)).new
 
       rows.times do |row|
@@ -40,7 +42,7 @@ module Edits
 
         # rotate matrix rows & generate next
         matrix[seq1_item] = last_row = curr_row
-        curr_row = Slice.new(cols + 1, inf)
+        curr_row = all_data[(row + 1) * row_size, row_size]
         curr_row[0] = row + 1
 
         cols.times do |col|
