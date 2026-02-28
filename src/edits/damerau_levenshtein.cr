@@ -7,6 +7,8 @@ module Edits
   # * Substitution
   # * Adjacent transposition
   module DamerauLevenshtein
+    extend Compare
+
     # Calculate the Damerau-Levenshtein distance of two sequences.
     #
     # ```
