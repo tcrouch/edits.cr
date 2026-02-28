@@ -141,18 +141,38 @@ module Edits
       curr_row = Slice.new(cols + 1) { |i| i }
       last_item = nil
 
+      # Track minimum cost seen in the previous row
+      prev_row_min = inf
+
       seq1.each_with_index do |seq1_item, row|
         # rotate matrix rows
         curr_row, last_row, lastlast_row = lastlast_row, curr_row, last_row
 
-        # Ukkonen cut-off
-        min_col = row > max ? row - max : 0
-        max_col = row + max
-        max_col = cols - 1 if max_col > cols - 1
         diagonal = cols - rows + row
 
-        # Initialize current row
+        # Early termination: remaining ops + best achievable cost exceeds max
+        remaining_chars = rows - row - 1
+        min_remaining_ops = (remaining_chars - cols + diagonal).abs
+        return max if row > 0 && min_remaining_ops + prev_row_min > max
+
+        # Ukkonen base bounds
+        base_min_col = row > max ? row - max : 0
+        base_max_col = Math.min(row + max, cols - 1)
+
+        # Tighten bounds using the min cost tracked from the previous row.
+        # prev_row_min is tracked as a side-effect of filling the prior row.
+        if row > 0 && prev_row_min < inf
+          slack = max - prev_row_min
+          min_col = Math.max(base_min_col, diagonal - slack)
+          max_col = Math.min(base_max_col, diagonal + slack)
+        else
+          min_col = base_min_col
+          max_col = base_max_col
+        end
+
+        # Initialize current row and reset row-minimum tracker
         curr_row[min_col] = min_col.zero? ? row + 1 : inf
+        curr_row_min = inf
 
         min_col.upto(max_col) do |col|
           return max if diagonal == col && last_row[col] >= max
@@ -182,7 +202,10 @@ module Edits
           end
 
           curr_row[col + 1] = cost
+          curr_row_min = Math.min(curr_row_min, cost)
         end
+
+        prev_row_min = curr_row_min
         last_item = seq1_item
       end
 
