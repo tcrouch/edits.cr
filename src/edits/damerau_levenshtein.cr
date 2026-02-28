@@ -91,21 +91,19 @@ module Edits
     private def self.distance(seq1 : Array(Int32), rows : Int, seq2 : Array(Int32), cols : Int) : Int32
       inf = cols + 1
 
-      # element => last row seen
-      row_history = Hash(Int32, Int32).new(0)
+      # char => last row index seen; -1 means never seen.
+      row_map = Hash(Int32, Int32).new(-1)
 
       row_size = cols + 1
       all_data = Slice(Int32).new((rows + 1) * row_size, inf)
       row_size.times { |i| all_data[i] = i }
       curr_row = all_data[0, row_size]
-      matrix = Hash(Int32, typeof(curr_row)).new
 
       rows.times do |row|
         seq1_item = seq1[row]
         match_col = 0
 
-        # rotate matrix rows & generate next
-        matrix[seq1_item] = last_row = curr_row
+        last_row = curr_row
         curr_row = all_data[(row + 1) * row_size, row_size]
         curr_row[0] = row + 1
 
@@ -123,14 +121,14 @@ module Edits
           cost = Math.min(cost, curr_row[col] + 1)
 
           # transposition cost
-          if sub_cost > 0 && row > 0
-            prev_row = matrix[seq2_item]?
+          if sub_cost > 0
+            prev_row_idx = row_map[seq2_item]
 
-            # skip missed matrix lookup (inf cost)
-            if prev_row
+            if prev_row_idx >= 0
+              prev_row = all_data[prev_row_idx * row_size, row_size]
               transpose = 1 + prev_row[match_col] \
-                + (row - row_history[seq2_item] - 1) \
-                  + (col - match_col - 1)
+                + (row - prev_row_idx - 1) \
+                + (col - match_col - 1)
               cost = Math.min(cost, transpose)
             end
           end
@@ -139,7 +137,7 @@ module Edits
           curr_row[col + 1] = cost
         end
 
-        row_history[seq1_item] = row
+        row_map[seq1_item] = row
       end
 
       curr_row[cols]
@@ -263,12 +261,13 @@ module Edits
     private def self.distance(seq1 : Array(Int32), rows : Int, seq2 : Array(Int32), cols : Int, max : Int) : Int32
       inf = cols + 1
 
-      # element => last row seen
-      row_history = Hash(Int32, Int32).new(0)
+      # char => last row index seen; -1 means never seen.
+      row_map = Hash(Int32, Int32).new(-1)
 
-      # initialize alphabet-keyed cost matrix
-      curr_row = Slice.new(cols + 1) { |i| i }
-      matrix = Hash(Int32, typeof(curr_row)).new
+      row_size = cols + 1
+      all_data = Slice(Int32).new((rows + 1) * row_size, inf)
+      row_size.times { |i| all_data[i] = i }
+      curr_row = all_data[0, row_size]
 
       prev_row_min = inf
 
@@ -276,8 +275,7 @@ module Edits
         seq1_item = seq1[row]
         match_col = 0
 
-        # rotate matrix rows & generate next
-        matrix[seq1_item] = last_row = curr_row
+        last_row = curr_row
 
         diagonal = cols - rows + row
 
@@ -300,7 +298,7 @@ module Edits
           max_col = base_max_col
         end
 
-        curr_row = Slice.new(cols + 1, inf)
+        curr_row = all_data[(row + 1) * row_size, row_size]
         curr_row[0] = row + 1
         curr_row_min = inf
 
@@ -321,14 +319,14 @@ module Edits
           cost = Math.min(cost, curr_row[col] + 1)
 
           # transposition cost
-          if sub_cost > 0 && row > 0
-            prev_row = matrix[seq2_item]?
+          if sub_cost > 0
+            prev_row_idx = row_map[seq2_item]
 
-            # skip missed matrix lookup (inf cost)
-            if prev_row
+            if prev_row_idx >= 0
+              prev_row = all_data[prev_row_idx * row_size, row_size]
               transpose = 1 + prev_row[match_col] \
-                + (row - row_history[seq2_item] - 1) \
-                  + (col - match_col - 1)
+                + (row - prev_row_idx - 1) \
+                + (col - match_col - 1)
               cost = Math.min(cost, transpose)
             end
           end
@@ -339,7 +337,7 @@ module Edits
         end
 
         prev_row_min = curr_row_min
-        row_history[seq1_item] = row
+        row_map[seq1_item] = row
       end
 
       curr_row[cols] > max ? max : curr_row[cols]
