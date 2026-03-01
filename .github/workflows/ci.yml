@@ -3,14 +3,12 @@ on:
   push:
   pull_request:
     branches: [main]
-  schedule:
-    - cron: "0 6 * * 6"
 jobs:
   test:
     strategy:
       fail-fast: false
       matrix:
-        crystal: ["1.1", latest]
+        crystal: ["1.7", latest]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -20,7 +18,7 @@ jobs:
         with:
           crystal: ${{ matrix.crystal }}
       - name: Install shards ✨
-        run: shards update --ignore-crystal-version
+        run: shards install
       - name: Run tests
         run: crystal spec --order=random
       - name: Check formatting
