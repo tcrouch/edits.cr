@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Crystal Docs 1.16.3">
+<meta name="generator" content="Crystal Docs 1.18.2">
 <meta name="crystal_docs.project_version" content="main">
 <meta name="crystal_docs.project_name" content="edits">
 
@@ -164,7 +164,7 @@
   </h2>
   
     
-      <a href="https://github.com/tcrouch/edits.cr/blob/2b6d5004928bef2ee6485aa797786b1dad875863/src/edits/damerau_levenshtein.cr#L9" target="_blank">
+      <a href="https://github.com/tcrouch/edits.cr/blob/acf3322e5d2ed02b3036295314937727a340c34d/src/edits/damerau_levenshtein.cr#L9" target="_blank">
         edits/damerau_levenshtein.cr
       </a>
     
@@ -187,6 +187,13 @@
     Class Method Summary
   </h2>
   <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#distance%28str1%2Cstr2%2Cmax%3AInt%29%3AInt-class-method" class="signature"><strong>.distance</strong>(str1, str2, max : Int) : Int</a>
+        
+          <div class="summary"><p>Calculate the Damerau-Levenshtein distance of two sequences, bounded by a maximum value.</p></div>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#distance%28str1%2Cstr2%29%3AInt-class-method" class="signature"><strong>.distance</strong>(str1, str2) : Int</a>
@@ -219,6 +226,30 @@
     Class Method Detail
   </h2>
   
+    <div class="entry-detail" id="distance(str1,str2,max:Int):Int-class-method">
+      <div class="signature">
+        
+        def self.<strong>distance</strong>(str1, str2, max : Int) : Int
+
+        <a class="method-permalink" href="#distance%28str1%2Cstr2%2Cmax%3AInt%29%3AInt-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Calculate the Damerau-Levenshtein distance of two sequences, bounded
+by a maximum value.</p>
+<pre><code class="language-crystal"><span class="t">DamerauLevenshtein</span>.distance(<span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>)    <span class="c"># =&gt; 3</span>
+<span class="t">DamerauLevenshtein</span>.distance(<span class="s">&quot;acer&quot;</span>, <span class="s">&quot;earn&quot;</span>, <span class="n">2</span>) <span class="c"># =&gt; 2</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/tcrouch/edits.cr/blob/acf3322e5d2ed02b3036295314937727a340c34d/src/edits/damerau_levenshtein.cr#L89" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="distance(str1,str2):Int-class-method">
       <div class="signature">
         
@@ -236,7 +267,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/tcrouch/edits.cr/blob/2b6d5004928bef2ee6485aa797786b1dad875863/src/edits/damerau_levenshtein.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/tcrouch/edits.cr/blob/acf3322e5d2ed02b3036295314937727a340c34d/src/edits/damerau_levenshtein.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
